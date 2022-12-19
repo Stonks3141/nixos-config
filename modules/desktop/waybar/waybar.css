@@ -1,0 +1,50 @@
+* {
+  font-family: 'FiraCode Nerd Font', monospace;
+  font-size: 13;
+}
+
+window#waybar {
+  background-color: rgba(36, 39, 58, 0.9);
+  color: white;
+}
+
+#workspaces button {
+  color: white;
+  border-radius: 0;
+  border-width: 0;
+  padding: 0 10px;
+  border-bottom: 3px solid alpha(white, 0);
+}
+
+#workspaces button:hover {
+  border-bottom: 3px solid rgb(237, 135, 150);
+}
+
+#workspaces button.focused {
+  background-color: rgba(73, 77, 100, 0.9);
+  border-bottom: 3px solid rgb(237, 135, 150);
+}
+
+.modules-right {
+  background-color: rgba(73, 77, 100, 0.9);
+  border-radius: 15px;
+  padding: 0 5px;
+  margin: 5px;
+}
+
+#mode {
+  margin-left: 10px;
+}
+
+#clock,
+#battery,
+#network,
+#pulseaudio {
+  padding: 0 10px;
+}
+
+#clock,
+#battery,
+#network {
+  border-left: 2px solid rgba(36, 39, 58, 0.9);
+}
