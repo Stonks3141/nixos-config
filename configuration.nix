@@ -13,6 +13,20 @@
   networking = {
     hostName = "samn-nixos";
     wireless.enable = true;
+    firewall = {
+      allowedUDPPorts = [ 51820 ];
+    };
+    wireguard.interfaces = {
+      wg0 = rec {
+        ips = [ "10.8.0.2/24" ];
+        listenPort = 51820;
+        privateKeyFile = "/home/samn/.wireguard/private.key";
+        interfaceNamespace = "wireguard";
+        preSetup = ''
+          ${pkgs.iproute2}/bin/ip netns add ${interfaceNamespace}
+        '';
+      };
+    };
   };
 
   hardware.opengl = {
@@ -26,15 +40,33 @@
 
   security = {
     polkit.enable = true;
+    rtkit.enable = true;
     pam.services.swaylock.text = ''
       auth include login
     '';
-    sudo.extraConfig = ''
-      Defaults       timestamp_timeout=10
-    '';
+    sudo = {
+      extraRules = [
+        {
+          groups = [ "wheel" ];
+          commands = [
+            { command = "${pkgs.iproute2}/bin/ip netns exec *"; options = [ "SETENV" "NOPASSWD" ]; }
+          ];
+        }
+      ];
+      extraConfig = ''
+        Defaults       timestamp_timeout=10
+      '';
+    };
   };
 
   services.printing.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 
   sound.enable = true;
   programs.light.enable = true;
@@ -69,6 +101,10 @@
     shell = pkgs.nushell;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" ];
   };
+
+  environment.systemPackages = with pkgs; [
+    wireguard-tools
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

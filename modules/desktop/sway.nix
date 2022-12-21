@@ -85,7 +85,7 @@
         };
         
         extraConfig = ''
-          exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+          exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
           exec systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
           exec systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
           exec mako
@@ -119,12 +119,17 @@
         text = ''
           include ${pkgs.sway}/etc/sway/config
           exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-          exec ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c ${pkgs.sway}/bin/sway -s ${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-3.0/gtk-dark.css; swaymsg exit
+          exec ${pkgs.greetd.gtkgreet}/bin/gtkgreet \
+            -l \
+            -c "sudo -E ${pkgs.iproute2}/bin/ip netns exec wireguard sudo -E -u #`id -u` ${pkgs.sway}/bin/sway" \
+            -s ${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-3.0/gtk-dark.css; \
+            swaymsg exit
         '';
       };
     in
     {
       enable = true;
+      restart = true;
       settings = {
         default_session = {
           command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
