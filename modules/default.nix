@@ -3,13 +3,9 @@
     ./desktop
     ./applications
     ./fonts.nix
+    ./system.nix
     ./secrets.nix
   ];
-
-  options.samn.stateVersion = lib.mkOption {
-    type = lib.types.str;
-    example = "22.11";
-  };
 
   config.environment.variables = {
     XDG_CURRENT_DESKTOP = "sway";
@@ -22,7 +18,7 @@
   };
 
   config.home-manager.users.samn = { pkgs, ... }: {
-    home.stateVersion = config.samn.stateVersion;
+    home.stateVersion = config.samn.system.stateVersion;
     home.sessionVariables = {
       EDITOR = "hx";
       BROWSER = "firefox";

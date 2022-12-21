@@ -53,6 +53,11 @@
       userName = "Sam Nystrom";
     };
 
+    programs.gpg = {
+      enable = true;
+      mutableKeys = false;
+    };
+
     programs.helix = {
       enable = true;
       settings = {
