@@ -6,7 +6,6 @@
 
   config = {
     networking = {
-      hostName = "samn-nixos";
       wireless.enable = true;
       firewall = {
         allowedTCPPorts = [ 53 ];

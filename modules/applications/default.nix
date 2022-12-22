@@ -1,4 +1,7 @@
-{ ... }: {
+{ pkgs, ... }: let
+  nur = pkgs.nur;
+in
+{
   imports = [ ./nushell ];
 
   home-manager.users.samn = { pkgs, ... }: {
@@ -25,7 +28,7 @@
     
     programs.firefox = {
       enable = true;
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      extensions = with nur.repos.rycee.firefox-addons; [
         ublock-origin
         bitwarden
       ];

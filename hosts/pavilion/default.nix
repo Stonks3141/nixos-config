@@ -4,6 +4,7 @@
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
   networking.hostId = "95833b11";
+  networking.hostName = "pavilion";
 
   samn = {
     system = {
