@@ -31,7 +31,6 @@
       home-manager.nixosModule
       agenix.nixosModule
       ./modules
-      ./hardware-configuration.nix
     ];
     hosts = {
       pavilion.modules = [ ./hosts/pavilion ];
