@@ -1,4 +1,5 @@
-{ pkgs, ... }: let
+{ pkgs, ... }:
+let
   nur = pkgs.nur;
 in
 {
@@ -25,7 +26,7 @@ in
       vlc
       discord
     ];
-    
+
     programs.firefox = {
       enable = true;
       extensions = with nur.repos.rycee.firefox-addons; [

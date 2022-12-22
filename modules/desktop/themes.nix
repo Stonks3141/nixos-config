@@ -1,4 +1,5 @@
-{ config, lib, ... }: let
+{ config, lib, ... }:
+let
   gtkTheme = config.samn.desktop.gtkTheme;
   iconTheme = config.samn.desktop.iconTheme;
   cursorTheme = config.samn.desktop.cursorTheme;

@@ -1,4 +1,5 @@
-{ config, lib, pkgs, ... }: let
+{ config, lib, pkgs, ... }:
+let
   bgImage = config.samn.desktop.bgImage;
   baseColor = config.samn.desktop.baseColor;
   accentColor = config.samn.desktop.accentColor;
@@ -9,7 +10,7 @@ in
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
-      
+
       config = rec {
         modifier = "Mod4";
         gaps.inner = 10;
@@ -82,7 +83,7 @@ in
           XF86MonBrightnessUp = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
         };
       };
-      
+
       extraConfig = ''
         exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
         exec systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
@@ -112,29 +113,30 @@ in
     greetd.gtkgreet
   ];
 
-  services.greetd = let
-    swayConfig = pkgs.writeTextFile {
-      name = "sway-config";
-      text = ''
-        include ${pkgs.sway}/etc/sway/config
-        exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-        exec ${pkgs.greetd.gtkgreet}/bin/gtkgreet \
-          -l \
-          -c "${if config.samn.system.wireguard.enable then
-            "sudo -E ${pkgs.iproute2}/bin/ip netns exec wireguard sudo -E -u #`id -u` "
-            else ""} ${pkgs.sway}/bin/sway" \
-          -s ${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-3.0/gtk-dark.css; \
-          swaymsg exit
-      '';
-    };
-  in
-  {
-    enable = true;
-    restart = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
+  services.greetd =
+    let
+      swayConfig = pkgs.writeTextFile {
+        name = "sway-config";
+        text = ''
+          include ${pkgs.sway}/etc/sway/config
+          exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+          exec ${pkgs.greetd.gtkgreet}/bin/gtkgreet \
+            -l \
+            -c "${if config.samn.system.wireguard.enable then
+              "sudo -E ${pkgs.iproute2}/bin/ip netns exec wireguard sudo -E -u #`id -u` "
+              else ""} ${pkgs.sway}/bin/sway" \
+            -s ${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-3.0/gtk-dark.css; \
+            swaymsg exit
+        '';
+      };
+    in
+    {
+      enable = true;
+      restart = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
+        };
       };
     };
-  };
 }

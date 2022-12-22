@@ -8,7 +8,7 @@
         height = 40;
         output = [ "eDP-1" ];
         modules-left = [ "sway/workspaces" "sway/mode" ];
-        modules-center = [];
+        modules-center = [ ];
         modules-right = [ "pulseaudio" "network" "battery" "clock" ];
 
         clock.tooltip = false;
