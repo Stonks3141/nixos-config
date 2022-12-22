@@ -8,6 +8,7 @@
   ];
 
   options.samn.desktop = {
+    enable = lib.mkEnableOption "desktop environment";
     bgImage = lib.mkOption {
       type = lib.types.str;
       example = "~/foo.png";

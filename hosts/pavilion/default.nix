@@ -24,5 +24,6 @@
       stateVersion = "22.11";
       wireguard.enable = true;
     };
+    desktop.enable = true;
   };
 }

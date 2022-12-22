@@ -19,6 +19,13 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
   outputs = inputs@{ self, nixpkgs, nur, home-manager, utils, agenix, ... }: utils.lib.mkFlake {
     inherit self inputs;
@@ -34,6 +41,16 @@
     ];
     hosts = {
       pavilion.modules = [ ./hosts/pavilion ];
+    };
+    outputsBuilder = channels: {
+      devShell = channels.nixpkgs.mkShell {
+        name = "NixOS config";
+        packages = with channels.nixpkgs; [
+          nil
+          nixpkgs-fmt
+          agenix.defaultPackage.x86_64-linux
+        ];
+      };
     };
   };
 }
