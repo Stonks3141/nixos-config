@@ -44,7 +44,7 @@
     };
     outputsBuilder = channels: {
       devShell = channels.nixpkgs.mkShell {
-        name = "NixOS config";
+        name = "nixos-config";
         packages = with channels.nixpkgs; [
           nil
           nixpkgs-fmt
