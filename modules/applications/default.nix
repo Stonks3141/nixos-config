@@ -1,9 +1,7 @@
 { ... }: {
-  imports = [
-    ./nushell
-  ];
+  imports = [ ./nushell ];
 
-  config.home-manager.users.samn = { pkgs, ... }: {
+  home-manager.users.samn = { pkgs, ... }: {
     home.packages = with pkgs; [
       # Prompt
       starship

@@ -7,17 +7,17 @@
     ./secrets.nix
   ];
 
-  config.environment.variables = {
+  environment.variables = {
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
   };
 
-  config.environment.sessionVariables = {
+  environment.sessionVariables = {
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
   };
 
-  config.home-manager.users.samn = { pkgs, ... }: {
+  home-manager.users.samn = { pkgs, ... }: {
     home.stateVersion = config.samn.system.stateVersion;
     home.sessionVariables = {
       EDITOR = "hx";

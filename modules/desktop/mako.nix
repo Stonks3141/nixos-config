@@ -1,5 +1,5 @@
 { config, ... }: {
-  config.home-manager.users.samn = { ... }: {
+  home-manager.users.samn = { ... }: {
     programs.mako = {
       enable = true;
       backgroundColor = "#${config.samn.desktop.baseColor}ff";

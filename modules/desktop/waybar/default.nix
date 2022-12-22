@@ -1,5 +1,5 @@
 { ... }: {
-  config.home-manager.users.samn = { ... }: {
+  home-manager.users.samn = { ... }: {
     programs.waybar = {
       enable = true;
       settings.mainBar = {
@@ -33,8 +33,8 @@
         };
 
         pulseaudio = {
-          format = "{volume}% {icon}";
-          format-bluetooth = "{volume}% {icon}";
+          format = "{icon} {volume}%";
+          format-bluetooth = "{icon} {volume}%";
           format-muted = "";
           format-icons = {
             headphone = "";

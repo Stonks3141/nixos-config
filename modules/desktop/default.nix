@@ -33,7 +33,25 @@
       package = lib.mkOption { type = lib.types.package; };
       name = lib.mkOption { type = lib.types.str; };
     };
-};
+  };
+
+  config.samn.desktop = {
+    bgImage = "/home/samn/mountain.png";
+    baseColor = "24273a";
+    accentColor = "ed8796";
+    gtkTheme = {
+      package = pkgs.catppuccin-gtk;
+      name = "Catppuccin-Red-Dark";
+    };
+    iconTheme = {
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus-Dark";
+    };
+    cursorTheme = {
+      package = pkgs.catppuccin-cursors.macchiatoDark;
+      name = "Catppuccin-Macchiato-Dark-Cursors";
+    };
+  };
 
   config = {
     home-manager.users.samn = { pkgs, ... }: {

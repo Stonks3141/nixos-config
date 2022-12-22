@@ -5,16 +5,12 @@
   };
 
   config = {
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    
-    boot.kernelParams = [ "i915.force_probe=46a6" ];
-
     networking = {
       hostName = "samn-nixos";
       wireless.enable = true;
       firewall = {
-        allowedUDPPorts = [ 51820 ];
+        allowedTCPPorts = [ 53 ];
+        allowedUDPPorts = [ 53 51820 ];
       };
       wireguard.interfaces = lib.mkIf config.samn.system.wireguard.enable {
         wg0 = rec {
@@ -29,14 +25,10 @@
       };
     };
 
-    hardware.opengl = {
-      enable = true;
-      driSupport = true;
-      extraPackages = [ pkgs.intel-compute-runtime ];
-    };
-
-    time.timeZone = "America/New_York";
-    i18n.defaultLocale = "en_US.UTF-8";
+    # services.dnsmasq = {
+    #   enable = true;
+    #   settings.interface = "wg0";
+    # };
 
     security = {
       polkit.enable = true;
@@ -65,10 +57,8 @@
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
-      jack.enable = true;
     };
 
-    sound.enable = true;
     programs.light.enable = true;
     programs.dconf.enable = true;
 
