@@ -13,12 +13,14 @@
     };
     utils = {
       url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-      };
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, nixpkgs, nur, home-manager, utils, ... }: utils.lib.mkFlake {
+  outputs = inputs@{ self, nixpkgs, nur, home-manager, utils, agenix, ... }: utils.lib.mkFlake {
     inherit self inputs;
     channels.nixpkgs = {
       input = nixpkgs;
@@ -27,6 +29,7 @@
     };
     hostDefaults.modules = [
       home-manager.nixosModule
+      agenix.nixosModule
       ./modules
       ./hardware-configuration.nix
     ];

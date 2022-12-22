@@ -5,8 +5,17 @@
   };
 
   config = {
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
     networking = {
-      wireless.enable = true;
+      wireless = {
+        enable = true;
+        environmentFile = config.age.secrets."networks".path;
+        networks = {
+          "Yosemite 2".psk = "@HOME_PSK@";
+          "Yosemite 5".psk = "@HOME_PSK@";
+        };
+      };
       firewall = {
         allowedTCPPorts = [ 53 ];
         allowedUDPPorts = [ 53 51820 ];
@@ -15,19 +24,27 @@
         wg0 = rec {
           ips = [ "10.8.0.2/24" ];
           listenPort = 51820;
-          privateKeyFile = "/home/samn/.wireguard/private.key";
+          privateKeyFile = config.age.secrets."wireguard/pavilion.key".path;
           interfaceNamespace = "wireguard";
           preSetup = ''
             ${pkgs.iproute2}/bin/ip netns add ${interfaceNamespace}
           '';
+          peers = [
+            {
+              publicKey = "KRPqCHDSme92ehGS/Pm+/4KosU2jVvttuP95/hCVN10=";
+              allowedIPs = [ "0.0.0.0/0" ];
+              endpoint = "170.187.182.181:51820";
+            }
+          ];
         };
       };
     };
 
-    # services.dnsmasq = {
-    #   enable = true;
-    #   settings.interface = "wg0";
-    # };
+    services.dnsmasq = {
+      # enable = true;
+      settings.server = [ "172.105.6.5" "172.105.9.5" "172.105.8.5" ];
+      # settings.interface = "wg0";
+    };
 
     security = {
       polkit.enable = true;
@@ -58,6 +75,19 @@
       pulse.enable = true;
     };
 
+    # services.openssh = {
+    #   hostKeys = [
+    #     {
+    #       path = "~/.ssh/samn";
+    #       type = "ed25519";
+    #     }
+    #     {
+    #       path = "~/.ssh/pavilion";
+    #       type = "ed25519";
+    #     }
+    #   ];
+    # };
+
     programs.light.enable = true;
     programs.dconf.enable = true;
 
@@ -68,6 +98,7 @@
       description = "Sam Nystrom";
       shell = pkgs.nushell;
       extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" ];
+      passwordFile = config.age.secrets."passwords/users/samn".path;
     };
 
     # This value determines the NixOS release from which the default
