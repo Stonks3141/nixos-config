@@ -15,6 +15,8 @@ in
       bat
       bottom
       zoxide
+      fd
+      tokei
       zip
       unzip
 
