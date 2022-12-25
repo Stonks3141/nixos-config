@@ -7,9 +7,7 @@ let
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      autotiling
-    ];
+    home.packages = with pkgs; [ autotiling ];
 
     wayland.windowManager.sway = {
       enable = true;
@@ -103,6 +101,7 @@ in
         exec systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
         exec systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
         exec mako
+        exec_always autotiling
       '';
 
       swaynag = {
