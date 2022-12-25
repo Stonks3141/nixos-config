@@ -29,6 +29,9 @@
           preSetup = ''
             ${pkgs.iproute2}/bin/ip netns add ${interfaceNamespace}
           '';
+          postShutdown = ''
+            ${pkgs.iproute2}/bin/ip netns del ${interfaceNamespace}
+          '';
           peers = [
             {
               publicKey = "KRPqCHDSme92ehGS/Pm+/4KosU2jVvttuP95/hCVN10=";
@@ -41,9 +44,9 @@
     };
 
     services.dnsmasq = {
-      # enable = true;
+      enable = true;
       settings.server = [ "172.105.6.5" "172.105.9.5" "172.105.8.5" ];
-      # settings.interface = "wg0";
+      settings.interface = "wg0";
     };
 
     security = {
@@ -74,6 +77,8 @@
       alsa.enable = true;
       pulse.enable = true;
     };
+
+    hardware.opentabletdriver.enable = true;
 
     # services.openssh = {
     #   hostKeys = [

@@ -6,7 +6,11 @@ let
   gtkTheme = config.samn.desktop.gtkTheme;
 in
 {
-  home-manager.users.samn = {
+  home-manager.users.samn = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      autotiling
+    ];
+
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
@@ -48,9 +52,17 @@ in
           "1133:16500:Logitech_G305" = {
             left_handed = "enabled";
           };
+          "32904:6:Handle_BYSB.net_SimPad_v2_Gaming_Keyboard" = {
+            left_handed = "enabled";
+          };
+          "9580:109:GAOMON_Gaomon_Tablet_Dial" = { };
         };
         output = {
           "eDP-1" = { bg = "${bgImage} stretch"; };
+          "HDMI-A-1" = {
+            bg = "${bgImage} stretch";
+            pos = "1920 0";
+          };
         };
         keybindings = lib.mkOptionDefault {
           # Exit
@@ -85,6 +97,8 @@ in
       };
 
       extraConfig = ''
+        bindswitch --reload --locked lid:on output eDP-1 disable
+        bindswitch --reload --locked lid:off output eDP-1 enable
         exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
         exec systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
         exec systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
