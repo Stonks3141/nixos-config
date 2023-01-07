@@ -14,6 +14,7 @@
         networks = {
           "Yosemite 2".psk = "@HOME_PSK@";
           "Yosemite 5".psk = "@HOME_PSK@";
+          "wcs-visitor" = {};
         };
       };
       firewall = {
