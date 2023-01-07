@@ -518,3 +518,5 @@ let-env config = {
 
 source ~/.cache/starship/init.nu
 source ~/.cache/zoxide/init.nu
+
+ssh-add ~/.ssh/samn
