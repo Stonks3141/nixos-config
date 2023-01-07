@@ -20,13 +20,17 @@ in
       zip
       unzip
 
-      # GUIs
+      # GUI applications
       xfce.thunar
       xfce.tumbler # thumbnails for Thunar
       viewnior
       libreoffice
       vlc
       discord
+      android-studio
+      (tor-browser-bundle-bin.override {
+        useHardenedMalloc = false;
+      })
     ];
 
     programs.firefox = {
