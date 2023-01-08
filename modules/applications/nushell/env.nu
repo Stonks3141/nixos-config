@@ -70,4 +70,4 @@ zoxide init nushell | save ~/.cache/zoxide/init.nu
 let-env EDITOR = 'hx'
 let-env GIT_EDITOR = 'hx'
 
-ssh-agent -c | lines | first 2 | parse "setenv {name} {value};" | reduce -f {} { |it, acc| $acc | upsert $it.name $it.value } | load-env
+ssh-agent -c | lines | first 2 | parse "setenv {name} {value};" | reduce -f {} { |it, acc| $acc | insert $it.name $it.value } | load-env
