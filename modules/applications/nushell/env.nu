@@ -62,10 +62,10 @@ let-env NU_PLUGIN_DIRS = [
 # let-env PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 
 mkdir ~/.cache/starship
-starship init nu | str replace --string 'term size -c' 'term size' | save ~/.cache/starship/init.nu
+starship init nu | str replace -as 'term size -c' 'term size' | save -f ~/.cache/starship/init.nu
 
 mkdir ~/.cache/zoxide
-zoxide init nushell | save ~/.cache/zoxide/init.nu
+zoxide init nushell | str replace -as '&&' 'and' | str replace -as '||' 'or' | save -f ~/.cache/zoxide/init.nu
 
 let-env EDITOR = 'hx'
 let-env GIT_EDITOR = 'hx'
