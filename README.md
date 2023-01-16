@@ -5,3 +5,5 @@ This is my NixOS configuration. It is heavily based on [@chvp](https://github.co
 ## Impurities
 
 - firefox stylus: install youtube and github Catppuccin-Macchiato themes
+- betterdiscord: run `nix run nixpkgs#betterdiscordctl install` and install
+  the Catppuccin-Macchiato theme
