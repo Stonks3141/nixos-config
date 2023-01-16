@@ -79,6 +79,45 @@
       pulse.enable = true;
     };
 
+    # Source: https://github.com/catppuccin/tty/blob/main/src/macchiato.sh
+    #
+    # Copyright (c) 2021 Catppuccin
+    #
+    # Permission is hereby granted, free of charge, to any person obtaining a copy
+    # of this software and associated documentation files (the "Software"), to deal
+    # in the Software without restriction, including without limitation the rights
+    # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    # copies of the Software, and to permit persons to whom the Software is
+    # furnished to do so, subject to the following conditions:
+    #
+    # The above copyright notice and this permission notice shall be included in all
+    # copies or substantial portions of the Software.
+    console.colors = [
+      "24273a"
+      "5b6078"
+
+      "cad3f5"
+      "a5adcb"
+
+      "ed8796"
+      "ed8796"
+
+      "a6da95"
+      "a6da95"
+
+      "eed49f"
+      "eed49f"
+
+      "8aadf4"
+      "8aadf4"
+
+      "f5bde6"
+      "f5bde6"
+
+      "8bd5ca"
+      "8bd5ca"
+    ];
+
     hardware.opentabletdriver.enable = true;
 
     # services.openssh = {
