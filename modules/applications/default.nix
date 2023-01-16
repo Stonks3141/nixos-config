@@ -38,6 +38,8 @@ in
       extensions = with nur.repos.rycee.firefox-addons; [
         ublock-origin
         bitwarden
+        firefox-color
+        stylus # youtube, github
       ];
     };
 
