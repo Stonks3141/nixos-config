@@ -18,6 +18,7 @@ in
       tokei
       zip
       unzip
+      appimage-run
 
       # GUI applications
       xfce.thunar
@@ -38,7 +39,7 @@ in
         ublock-origin
         bitwarden
         firefox-color
-        stylus # youtube, github
+        stylus
       ];
     };
 
