@@ -124,12 +124,13 @@ in
     programs.bat = {
       enable = true;
       config.theme = "Catppuccin-macchiato";
-      themes."Catppuccin-macchiato" = builtins.readFile (pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "bat";
-        rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
-        sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-      } + /Catppuccin-macchiato.tmTheme);
+      themes."Catppuccin-macchiato" = builtins.readFile (pkgs.fetchFromGitHub
+        {
+          owner = "catppuccin";
+          repo = "bat";
+          rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
+          sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
+        } + /Catppuccin-macchiato.tmTheme);
     };
 
     programs.bottom = {
@@ -152,7 +153,7 @@ in
         table_header_color = "#f4dbd6";
         all_cpu_color = "#f4dbd6";
         avg_cpu_color = "#ee99a0";
-        cpu_core_colors = ["#ed8796" "#f5a97f" "#eed49f" "#a6da95" "#7dc4e4" "#c6a0f6"];
+        cpu_core_colors = [ "#ed8796" "#f5a97f" "#eed49f" "#a6da95" "#7dc4e4" "#c6a0f6" ];
         ram_color = "#a6da95";
         swap_color = "#f5a97f";
         rx_color = "#a6da95";
@@ -168,7 +169,7 @@ in
         high_battery_color = "#a6da95";
         medium_battery_color = "#eed49f";
         low_battery_color = "#ed8796";
-        gpu_core_colors = ["#7dc4e4" "#c6a0f6" "#ed8796" "#f5a97f" "#eed49f" "#a6da95"];
+        gpu_core_colors = [ "#7dc4e4" "#c6a0f6" "#ed8796" "#f5a97f" "#eed49f" "#a6da95" ];
         arc_color = "#91d7e3";
       };
     };
