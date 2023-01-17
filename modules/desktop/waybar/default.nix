@@ -1,6 +1,8 @@
-{ pkgs, ... }: let
-powerScript = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
-in {
+{ pkgs, ... }:
+let
+  powerScript = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
+in
+{
   home-manager.users.samn = { ... }: {
     programs.waybar = {
       enable = true;

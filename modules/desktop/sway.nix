@@ -63,23 +63,24 @@ in
             pos = "1920 0";
           };
         };
-        keybindings = builtins.removeAttrs (lib.mkOptionDefault {
-          # Screenshot
-          "Shift+Print" = "exec ${screenshot} --snip";
-          Print = "exec ${screenshot}";
-          # Volume
-          XF86AudioRaiseVolume = ''
-            exec [ $(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+(?=%)' | head -1) -le 95 ] \
-              && ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5% \
-              || ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ 100%
-          '';
-          XF86AudioLowerVolume = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-          XF86AudioMute = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          XF86AudioMicMute = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-          # Brightness
-          XF86MonBrightnessDown = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
-          XF86MonBrightnessUp = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
-        }) [ "${modifier}+Shift+e" ];
+        keybindings = builtins.removeAttrs
+          (lib.mkOptionDefault {
+            # Screenshot
+            "Shift+Print" = "exec ${screenshot} --snip";
+            Print = "exec ${screenshot}";
+            # Volume
+            XF86AudioRaiseVolume = ''
+              exec [ $(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+(?=%)' | head -1) -le 95 ] \
+                && ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5% \
+                || ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ 100%
+            '';
+            XF86AudioLowerVolume = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+            XF86AudioMute = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+            XF86AudioMicMute = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+            # Brightness
+            XF86MonBrightnessDown = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
+            XF86MonBrightnessUp = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
+          }) [ "${modifier}+Shift+e" ];
       };
 
       extraConfig = ''
