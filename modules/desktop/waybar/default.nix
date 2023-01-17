@@ -1,4 +1,6 @@
-{ ... }: {
+{ pkgs, ... }: let
+powerScript = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
+in {
   home-manager.users.samn = { ... }: {
     programs.waybar = {
       enable = true;
@@ -9,13 +11,21 @@
         output = [ "eDP-1" "HDMI-A-1" ];
         modules-left = [ "sway/workspaces" "sway/mode" ];
         modules-center = [ ];
-        modules-right = [ "pulseaudio" "network" "battery" "clock" ];
+        modules-right = [ "pulseaudio" "network" "battery" "clock" "custom/power" ];
 
-        clock.tooltip = false;
+        "custom/power" = {
+          format = " ";
+          on-click = "${pkgs.rofi}/bin/rofi -show power -modes power:${powerScript}";
+        };
+
+        clock = {
+          format = " {:%H:%M}";
+          tooltip = false;
+        };
 
         battery = {
           interval = 15;
-          format = "{capacity}% {icon}";
+          format = "{icon} {capacity}%";
           format-icons = {
             full = "";
             discharging = [ "" "" "" "" "" "" "" "" "" "" ];
@@ -27,9 +37,9 @@
 
         network = {
           format-disconnected = "睊 ";
-          format-ethernet = "{ifname}  ";
-          format-wifi = "{essid} ({signalStrength}%) 直 ";
-          tooltip = false;
+          format-ethernet = " {ifname}";
+          format-wifi = "直 {signalStrength}%";
+          tooltip-format-wifi = "{essid}";
         };
 
         pulseaudio = {
