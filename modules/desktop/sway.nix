@@ -4,6 +4,7 @@ let
   gtkTheme = config.samn.desktop.gtkTheme;
   baseColor = "24273a";
   accentColor = "ed8796";
+  screenshot = pkgs.writeScript "screenshot" (builtins.readFile ./screenshot.nu);
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
@@ -64,14 +65,8 @@ in
         };
         keybindings = builtins.removeAttrs (lib.mkOptionDefault {
           # Screenshot
-          "Shift+Print" = ''
-            exec ${pkgs.slurp}/bin/slurp -d | ${pkgs.grim}/bin/grim -g - ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png && \
-            notify-send -u low -t 5000 -i ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png "Screenshot saved to ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png"
-          '';
-          Print = ''
-            exec ${pkgs.grim}/bin/grim ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png && \
-            notify-send -u low -t 5000 -i ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png "Screenshot saved to ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png"
-          '';
+          "Shift+Print" = "exec ${screenshot} --snip";
+          Print = "exec ${screenshot}";
           # Volume
           XF86AudioRaiseVolume = ''
             exec [ $(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+(?=%)' | head -1) -le 95 ] \
