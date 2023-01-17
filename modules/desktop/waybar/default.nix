@@ -11,9 +11,13 @@ in
         position = "top";
         height = 40;
         output = [ "eDP-1" "HDMI-A-1" ];
-        modules-left = [ "sway/workspaces" "sway/mode" ];
+        modules-left = [ "custom/nix" "sway/workspaces" "sway/mode" ];
         modules-center = [ ];
-        modules-right = [ "pulseaudio" "network" "battery" "clock" "custom/power" ];
+        modules-right = [ "pulseaudio" "network" "backlight" "battery" "clock" "custom/power" ];
+
+        "custom/nix" = {
+          format = " ";
+        };
 
         "custom/power" = {
           format = " ";
@@ -37,8 +41,12 @@ in
           tooltip = false;
         };
 
+        backlight = {
+          format = " {percent}%";
+        };
+
         network = {
-          format-disconnected = "睊 ";
+          format-disconnected = "睊";
           format-ethernet = " {ifname}";
           format-wifi = "直 {signalStrength}%";
           tooltip-format-wifi = "{essid}";
