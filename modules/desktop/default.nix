@@ -11,15 +11,6 @@
     enable = lib.mkEnableOption "desktop environment";
     bgImage = lib.mkOption {
       type = lib.types.str;
-      example = "~/foo.png";
-    };
-    baseColor = lib.mkOption {
-      type = lib.types.str;
-      example = "fefefe";
-    };
-    accentColor = lib.mkOption {
-      type = lib.types.str;
-      example = "fafafa";
     };
 
     gtkTheme = {
@@ -38,8 +29,6 @@
 
   config.samn.desktop = {
     bgImage = "/home/samn/mountain.png";
-    baseColor = "24273a";
-    accentColor = "ed8796";
     gtkTheme = {
       package = pkgs.catppuccin-gtk;
       name = "Catppuccin-Red-Dark";

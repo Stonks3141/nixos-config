@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
   bgImage = config.samn.desktop.bgImage;
-  baseColor = config.samn.desktop.baseColor;
-  accentColor = config.samn.desktop.accentColor;
   gtkTheme = config.samn.desktop.gtkTheme;
+  baseColor = "24273a";
+  accentColor = "ed8796";
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
@@ -62,16 +62,9 @@ in
             pos = "1920 0";
           };
         };
-        keybindings = lib.mkOptionDefault {
-          # Exit
-          "${modifier}+Shift+e" = ''
-            exec swaynag -t warning -m 'What do you want to do?' \
-              -b 'Shut Down' 'systemctl poweroff' \
-              -b 'Reboot' 'systemctl reboot' \
-              -b 'Log Out' 'swaymsg exit'
-          '';
+        keybindings = builtins.removeAttrs (lib.mkOptionDefault {
           # Screenshot
-          "${modifier}+Print" = ''
+          "Shift+Print" = ''
             exec ${pkgs.slurp}/bin/slurp -d | ${pkgs.grim}/bin/grim -g - ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png && \
             notify-send -u low -t 5000 -i ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png "Screenshot saved to ~/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png"
           '';
@@ -91,7 +84,7 @@ in
           # Brightness
           XF86MonBrightnessDown = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
           XF86MonBrightnessUp = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
-        };
+        }) [ "${modifier}+Shift+e" ];
       };
 
       extraConfig = ''
@@ -103,22 +96,6 @@ in
         exec mako
         exec_always autotiling
       '';
-
-      swaynag = {
-        enable = true;
-        settings = {
-          warning = {
-            background = baseColor;
-            button-background = "494d64";
-            border-bottom = accentColor;
-            button-border-size = 0;
-            button-margin-right = 5;
-            button-padding = 5;
-            text = "ffffff";
-            button-text = "ffffff";
-          };
-        };
-      };
     };
   };
 
