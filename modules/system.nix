@@ -135,6 +135,7 @@
 
     programs.light.enable = true;
     programs.dconf.enable = true;
+    programs.adb.enable = true;
 
     users.mutableUsers = false;
     users.users.samn = {
@@ -142,7 +143,7 @@
       home = "/home/samn";
       description = "Sam Nystrom";
       shell = pkgs.nushell;
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" ];
+      extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" "adbusers" ];
       passwordFile = config.age.secrets."passwords/users/samn".path;
     };
 
