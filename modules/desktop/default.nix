@@ -9,10 +9,6 @@
 
   options.samn.desktop = {
     enable = lib.mkEnableOption "desktop environment";
-    bgImage = lib.mkOption {
-      type = lib.types.str;
-    };
-
     gtkTheme = {
       package = lib.mkOption { type = lib.types.package; };
       name = lib.mkOption { type = lib.types.str; };
@@ -28,7 +24,6 @@
   };
 
   config.samn.desktop = {
-    bgImage = "/home/samn/mountain.png";
     gtkTheme = {
       package = pkgs.catppuccin-gtk;
       name = "Catppuccin-Red-Dark";

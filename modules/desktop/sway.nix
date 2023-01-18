@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
 let
-  bgImage = config.samn.desktop.bgImage;
+  wallpaper = builtins.path {
+    path = ./wallpaper.png;
+    name = "wallpaper";
+  };
   gtkTheme = config.samn.desktop.gtkTheme;
   baseColor = "24273a";
   accentColor = "ed8796";
@@ -37,7 +40,7 @@ in
         terminal = "kitty";
         focus.followMouse = false;
         startup = [
-          { command = "${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i ${bgImage}' timeout 150 '${pkgs.sway}/bin/swaymsg \"output * dpms off\"' resume '${pkgs.sway}/bin/swaymsg \"output * dpms on\"' before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${bgImage}'"; }
+          { command = "${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}' timeout 150 '${pkgs.sway}/bin/swaymsg \"output * dpms off\"' resume '${pkgs.sway}/bin/swaymsg \"output * dpms on\"' before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}'"; }
         ];
         menu = "rofi -show drun";
         bars = [
@@ -57,9 +60,9 @@ in
           "9580:109:GAOMON_Gaomon_Tablet_Dial" = { };
         };
         output = {
-          "eDP-1" = { bg = "${bgImage} stretch"; };
+          "eDP-1" = { bg = "${wallpaper} stretch"; };
           "HDMI-A-1" = {
-            bg = "${bgImage} stretch";
+            bg = "${wallpaper} stretch";
             pos = "1920 0";
           };
         };
