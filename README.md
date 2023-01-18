@@ -2,6 +2,8 @@
 
 This is my NixOS configuration. It is heavily based on [@chvp](https://github.com/chvp)'s excellent [config](https://github.com/chvp/nixos-config).
 
+![desktop](/desktop.png)
+
 ## Impurities
 
 - firefox stylus: install youtube and github Catppuccin-Macchiato themes
