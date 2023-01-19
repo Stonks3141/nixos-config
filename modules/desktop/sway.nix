@@ -7,7 +7,8 @@ let
   gtkTheme = config.samn.desktop.gtkTheme;
   baseColor = "24273a";
   accentColor = "ed8796";
-  screenshot = pkgs.writeScript "screenshot" (builtins.readFile ./screenshot.nu);
+  screenshot = pkgs.writeScript "screenshot.nu" (builtins.readFile ./screenshot.nu);
+  powerScript = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
@@ -66,7 +67,9 @@ in
             pos = "1920 0";
           };
         };
-        keybindings = builtins.removeAttrs (lib.mkOptionDefault {
+        keybindings = lib.mkOptionDefault {
+          # Exit
+          "${modifier}+Shift+e" = "exec ${powerScript}";
           # Screenshot
           "Shift+Print" = "exec ${screenshot} --snip";
           Print = "exec ${screenshot}";
@@ -82,7 +85,7 @@ in
           # Brightness
           XF86MonBrightnessDown = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
           XF86MonBrightnessUp = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
-        }) [ "${modifier}+Shift+e" ];
+        };
       };
 
       extraConfig = ''

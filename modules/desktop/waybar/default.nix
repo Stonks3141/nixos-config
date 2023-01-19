@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  powerScript = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
+  powerScript = pkgs.writeScript "power.nu" (builtins.readFile ../power.nu);
 in
 {
   home-manager.users.samn = { ... }: {
