@@ -39,7 +39,7 @@ window#waybar {
 #backlight,
 #network,
 #pulseaudio {
-  background-color: alpha(@surface0, 0.9);
+  background-color: alpha(@surface0, 0.5);
   border-radius: 15px;
   margin: 5px;
   padding: 0 15px;
@@ -55,7 +55,7 @@ window#waybar {
   font-size: 20px;
 }
 
-#custom-power button:hover {
+#custom-power *:hover {
   background-color: alpha(@surface2, 0.9);
 }
 

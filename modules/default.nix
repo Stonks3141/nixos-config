@@ -5,6 +5,7 @@
     ./fonts.nix
     ./system.nix
     ./secrets.nix
+    ./grub.nix
   ];
 
   environment.variables = {

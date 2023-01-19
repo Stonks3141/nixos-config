@@ -50,6 +50,7 @@ in
           format-ethernet = " {ifname}";
           format-wifi = "直 {signalStrength}%";
           tooltip-format-wifi = "{essid}";
+          on-click = pkgs.writeScript "wifi.nu" (builtins.readFile ./wifi.nu);
         };
 
         pulseaudio = {
