@@ -8,6 +8,7 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.gfxmodeEfi = "1920x1080";
+  boot.loader.grub.gfxpayloadEfi = "1920x1080";
 
   boot.kernelParams = [ "i915.force_probe=46a6" ];
 
