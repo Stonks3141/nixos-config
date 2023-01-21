@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   imports = [ ./hardware.nix ];
 
   time.timeZone = "America/New_York";
@@ -23,7 +23,10 @@
   samn = {
     system = {
       stateVersion = "22.11";
-      wireguard.enable = true;
+      wireguard = {
+        enable = false;
+        privateKeyFile = config.age.secrets."wireguard/pavilion.key".path;
+      };
     };
     desktop.enable = true;
   };

@@ -1,7 +1,13 @@
 { config, pkgs, lib, ... }: {
   options.samn.system = {
     stateVersion = lib.mkOption { type = lib.types.str; };
-    wireguard.enable = lib.mkEnableOption "wireguard";
+    wireguard = {
+      enable = lib.mkEnableOption "wireguard";
+      privateKeyFile = lib.mkOption {
+        type = lib.types.path;
+        description = "Private key file for wireguard";
+      };
+    };
   };
 
   config = {
@@ -25,7 +31,7 @@
         wg0 = rec {
           ips = [ "10.8.0.2/24" ];
           listenPort = 51820;
-          privateKeyFile = config.age.secrets."wireguard/pavilion.key".path;
+          privateKeyFile = config.samn.system.wireguard.privateKeyFile;
           interfaceNamespace = "wireguard";
           preSetup = ''
             ${pkgs.iproute2}/bin/ip netns add ${interfaceNamespace}
@@ -156,3 +162,4 @@
     system.stateVersion = config.samn.system.stateVersion; # Did you read the comment?
   };
 }
+
