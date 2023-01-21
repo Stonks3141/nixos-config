@@ -6,8 +6,6 @@
   networking.hostId = "95833b11";
   networking.hostName = "pavilion";
 
-  boot.loader.grub.device = "/dev/disk/by-uuid/1CA4-F111";
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelParams = [ "i915.force_probe=46a6" ];
