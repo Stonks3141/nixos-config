@@ -7,7 +7,7 @@ def main [choice?: string] {
   } else {
     {
       'Log Out': {swaymsg exit}
-      'Power Off': {systemctl shutdown}
+      'Power Off': {systemctl poweroff}
       'Restart': {systemctl reboot}
     } | get $choice | do $in
   }
