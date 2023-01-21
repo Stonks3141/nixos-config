@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  catppuccin-grub = pkgs.stdenvNoCC.mkDerivation rec {
+  catppuccin-grub = pkgs.stdenvNoCC.mkDerivation {
     name = "catppuccin-grub";
     src = pkgs.fetchFromGitHub {
       owner = "catppuccin";
