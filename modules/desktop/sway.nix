@@ -8,7 +8,12 @@ let
   baseColor = "24273a";
   accentColor = "ed8796";
   screenshot = pkgs.writeScript "screenshot.nu" (builtins.readFile ./screenshot.nu);
-  powerScript = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
+  power = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
+  volume = pkgs.writeShellApplication {
+    name = "volume.nu";
+    runtimeInputs = [ pkgs.pulseaudio ];
+    text = builtins.readFile ./volume.nu;
+  };
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
@@ -69,19 +74,15 @@ in
         };
         keybindings = lib.mkOptionDefault {
           # Exit
-          "${modifier}+Shift+e" = "exec ${powerScript}";
+          "${modifier}+Shift+e" = "exec ${power}";
           # Screenshot
           "Shift+Print" = "exec ${screenshot} --snip";
           Print = "exec ${screenshot}";
           # Volume
-          XF86AudioRaiseVolume = ''
-            exec [ $(${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+(?=%)' | head -1) -le 95 ] \
-              && ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5% \
-              || ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ 100%
-          '';
-          XF86AudioLowerVolume = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-          XF86AudioMute = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          XF86AudioMicMute = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          XF86AudioRaiseVolume = "exec ${volume} up";
+          XF86AudioLowerVolume = "exec ${volume} down";
+          XF86AudioMute = "exec ${volume} mute";
+          XF86AudioMicMute = "exec ${volume} mic-mute";
           # Brightness
           XF86MonBrightnessDown = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
           XF86MonBrightnessUp = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
