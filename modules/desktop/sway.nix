@@ -9,11 +9,9 @@ let
   accentColor = "ed8796";
   screenshot = pkgs.writeScript "screenshot.nu" (builtins.readFile ./screenshot.nu);
   power = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
-  volume = pkgs.writeShellApplication {
-    name = "volume.nu";
-    runtimeInputs = [ pkgs.pulseaudio ];
-    text = builtins.readFile ./volume.nu;
-  };
+  volume = pkgs.writeScript "volume.nu" ''
+    PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH ${./volume.nu} "$@"
+  '';
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
