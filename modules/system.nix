@@ -146,13 +146,15 @@
     programs.dconf.enable = true;
     programs.adb.enable = true;
 
+    virtualisation.virtualbox.host.enable = true;
+    
     users.mutableUsers = false;
     users.users.samn = {
       isNormalUser = true;
       home = "/home/samn";
       description = "Sam Nystrom";
       shell = pkgs.nushell;
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" "adbusers" ];
+      extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" "adbusers" "vboxusers" ];
       passwordFile = config.age.secrets."passwords/users/samn".path;
     };
 
