@@ -204,13 +204,13 @@ in
       ];
       themes.my_catppuccin_macchiato = {
         inherits = "catppuccin_macchiato";
-        hint.fg = "white";
+        hint.fg = "text";
         info.fg = "blue";
-        warning.fg = "orange";
+        warning.fg = "peach";
         error.fg = "red";
-        "diagnostic.hint".underline = { style = "curl"; color = "white"; };
+        "diagnostic.hint".underline = { style = "curl"; color = "text"; };
         "diagnostic.info".underline = { style = "curl"; color = "blue"; };
-        "diagnostic.warning".underline = { style = "curl"; color = "orange"; };
+        "diagnostic.warning".underline = { style = "curl"; color = "peach"; };
         "diagnostic.error".underline = { style = "curl"; color = "red"; };
       };
     };
