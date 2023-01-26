@@ -192,6 +192,16 @@ in
           indent-guides.render = true;
         };
       };
+      languages = [
+        {
+          name = "rust";
+          config.checkOnSave.command = "clippy";
+        }
+        {
+          name = "nix";
+          formatter.command = "nixpkgs-fmt";
+        }
+      ];
       themes.my_catppuccin_macchiato = {
         inherits = "catppuccin_macchiato";
         hint.fg = "white";
