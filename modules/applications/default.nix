@@ -28,6 +28,7 @@ in
       vlc
       discord
       android-studio
+      prusa-slicer
       (tor-browser-bundle-bin.override {
         useHardenedMalloc = false;
       })
