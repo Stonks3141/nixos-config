@@ -24,7 +24,7 @@ in
       xfce.thunar
       xfce.tumbler # thumbnails for Thunar
       viewnior
-      libreoffice
+      # libreoffice
       vlc
       discord
       android-studio

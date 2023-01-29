@@ -36,7 +36,7 @@
     };
     hostDefaults.modules = [
       home-manager.nixosModule
-      agenix.nixosModule
+      agenix.nixosModules.default
       ./modules
     ];
     hosts = {
