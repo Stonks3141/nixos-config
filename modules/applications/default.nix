@@ -15,6 +15,7 @@ in
       zoxide
       fd
       fzf
+      mdcat
       tokei
       zip
       unzip
