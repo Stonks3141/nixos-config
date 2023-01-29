@@ -13,6 +13,7 @@ in
       # CLIs
       ripgrep
       zoxide
+      exa
       fd
       fzf
       mdcat
