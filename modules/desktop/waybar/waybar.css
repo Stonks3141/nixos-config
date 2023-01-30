@@ -18,8 +18,7 @@ window#waybar {
 
 #workspaces button {
   border-radius: 0;
-  padding: 0 15px;
-  color: @text;
+  padding: 0 10px;
 }
 
 #workspaces button:hover {

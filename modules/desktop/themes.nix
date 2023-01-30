@@ -1,8 +1,14 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   gtkTheme = config.samn.desktop.gtkTheme;
-  iconTheme = config.samn.desktop.iconTheme;
-  cursorTheme = config.samn.desktop.cursorTheme;
+  iconTheme = {
+    package = pkgs.papirus-icon-theme;
+    name = "Papirus-Dark";
+  };
+  cursorTheme = {
+    package = pkgs.catppuccin-cursors.macchiatoDark;
+    name = "Catppuccin-Macchiato-Dark-Cursors";
+  };
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
