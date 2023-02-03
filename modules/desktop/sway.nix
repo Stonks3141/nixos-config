@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   wallpaper = builtins.path {
-    path = ./wallpaper.png;
+    path = ./wallpaper.jpg;
     name = "wallpaper";
   };
   gtkTheme = config.samn.desktop.gtkTheme;
