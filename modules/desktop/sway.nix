@@ -99,26 +99,20 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    greetd.gtkgreet
-  ];
-
   services.greetd =
     let
-      swayConfig = pkgs.writeTextFile {
-        name = "sway-config";
-        text = ''
+      swayConfig = pkgs.writeText "sway-config"
+        ''
           include ${pkgs.sway}/etc/sway/config
           exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
           exec ${pkgs.greetd.gtkgreet}/bin/gtkgreet \
             -l \
             -c "${if config.samn.system.wireguard.enable then
-              "sudo -E ${pkgs.iproute2}/bin/ip netns exec wireguard sudo -E -u #`id -u` "
+              "sudo -E ${pkgs.iproute2}/bin/ip netns exec wireguard sudo -E -u #${builtins.toString config.users.users.samn.uid} "
               else ""} ${pkgs.sway}/bin/sway" \
             -s ${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-3.0/gtk-dark.css; \
             swaymsg exit
         '';
-      };
     in
     {
       enable = true;
