@@ -5,7 +5,7 @@ let
   users = [ samn ];
 in
 {
-  "secrets/passwords/users/samn.age".publicKeys = hosts ++ users;
+  "secrets/passwords/users/samn.age".publicKeys = hosts ++ [ samn ];
   "secrets/networks.age".publicKeys = hosts ++ users;
-  # "secrets/wireguard/pavilion.key.age".publicKeys = [ pavilion ] ++ users;
+  "secrets/wireguard/pavilion.key.age".publicKeys = [ pavilion ] ++ users;
 }

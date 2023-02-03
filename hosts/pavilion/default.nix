@@ -24,7 +24,7 @@
     system = {
       stateVersion = "22.11";
       wireguard = {
-        enable = false;
+        enable = true;
         privateKeyFile = config.age.secrets."wireguard/pavilion.key".path;
       };
     };
