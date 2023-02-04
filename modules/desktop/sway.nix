@@ -4,7 +4,7 @@ let
     path = ./wallpaper.jpg;
     name = "wallpaper";
   };
-  gtkTheme = config.samn.desktop.gtkTheme;
+  gtkTheme = config.home-manager.users.samn.gtk.theme;
   baseColor = "24273a";
   accentColor = "ed8796";
   screenshot = pkgs.writeScript "screenshot.nu" (builtins.readFile ./screenshot.nu);

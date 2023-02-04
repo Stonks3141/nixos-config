@@ -7,23 +7,7 @@
     ./mako.nix
   ];
 
-  options.samn.desktop = {
-    enable = lib.mkEnableOption "desktop environment";
-    gtkTheme = {
-      name = lib.mkOption { type = lib.types.str; };
-      package = lib.mkOption { type = lib.types.package; };
-    };
-  };
-
-  config.samn.desktop = {
-    gtkTheme = {
-      name = "Catppuccin-Macchiato-Standard-Red-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "red" ];
-        variant = "macchiato";
-      };
-    };
-  };
+  options.samn.desktop.enable = lib.mkEnableOption "desktop environment";
 
   config = {
     home-manager.users.samn = { pkgs, ... }: {

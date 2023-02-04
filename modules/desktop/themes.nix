@@ -1,17 +1,70 @@
 { config, pkgs, lib, ... }:
 let
-  gtkTheme = config.samn.desktop.gtkTheme;
+  cfg = config.samn.desktop.themes;
+  # capitalize first letter
+  firstUpper = str: with lib; strings.concatStrings (
+    lists.imap0
+      (i: v: if i == 0 then strings.toUpper v else v)
+      (strings.stringToCharacters str)
+  );
+  gtkTheme = {
+    name = "Catppuccin-${firstUpper cfg.gtk.catppuccin}-Standard-${firstUpper cfg.gtk.accent}-Dark";
+    package = pkgs.catppuccin-gtk.override {
+      accents = [ cfg.gtk.accent ];
+      variant = cfg.gtk.catppuccin;
+    };
+  };
   iconTheme = {
     package = pkgs.papirus-icon-theme;
     name = "Papirus-Dark";
   };
   cursorTheme = {
-    package = pkgs.catppuccin-cursors.macchiatoDark;
-    name = "Catppuccin-Macchiato-Dark-Cursors";
+    package = pkgs.catppuccin-cursors."${cfg.cursor.catppuccin}Dark";
+    name = "Catppuccin-${firstUpper cfg.cursor.catppuccin}-Dark-Cursors";
   };
 in
 {
-  home-manager.users.samn = { pkgs, ... }: {
+  options.samn.desktop.themes = {
+    gtk = {
+      catppuccin = lib.mkOption {
+        type = lib.types.enum [ "mocha" "macchiato" "frappe" "latte" ];
+        default = config.samn.catppuccin;
+        description = "Catppuccin flavor for GTK";
+      };
+      accent = lib.mkOption {
+        type = lib.types.enum [
+          "rosewater"
+          "flamingo"
+          "pink"
+          "mauve"
+          "red"
+          "maroon"
+          "peach"
+          "yellow"
+          "green"
+          "teal"
+          "sky"
+          "sapphire"
+          "blue"
+          "lavender"
+        ];
+        default = config.samn.accent;
+        description = "Catppuccin accent for GTK";
+      };
+    };
+    icon.catppuccin = lib.mkOption {
+      type = lib.types.enum [ "mocha" "macchiato" "frappe" "latte" ];
+      default = config.samn.catppuccin;
+      description = "Catppuccin icon flavor";
+    };
+    cursor.catppuccin = lib.mkOption {
+      type = lib.types.enum [ "mocha" "macchiato" "frappe" "latte" ];
+      default = config.samn.catppuccin;
+      description = "Catppuccin flavor for the cursor";
+    };
+  };
+
+  config.home-manager.users.samn = { pkgs, ... }: {
     home.pointerCursor = {
       package = cursorTheme.package;
       name = cursorTheme.name;
