@@ -8,11 +8,11 @@ in
     programs.waybar = {
       enable = true;
       settings.mainBar = {
-        layer = "bottom";
+        layer = "top";
         position = "top";
         height = 40;
         output = [ "eDP-1" "HDMI-A-1" ];
-        modules-left = [ "custom/nix" "sway/workspaces" "sway/mode" ];
+        modules-left = [ "custom/nix" "wlr/workspaces" "sway/mode" ];
         modules-center = [ ];
         modules-right = [ "pulseaudio" "network" "backlight" "battery" "clock" "custom/power" ];
 
