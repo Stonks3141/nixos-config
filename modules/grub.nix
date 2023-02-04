@@ -1,5 +1,6 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
+  cfg = config.samn.grub;
   catppuccin-grub = pkgs.stdenvNoCC.mkDerivation {
     name = "catppuccin-grub";
     src = pkgs.fetchFromGitHub {
@@ -10,12 +11,20 @@ let
     };
     installPhase = ''
       mkdir -p $out
-      cp -r ./src/catppuccin-macchiato-grub-theme/* $out
+      cp -r ./src/catppuccin-${cfg.catppuccin}-grub-theme/* $out
     '';
   };
 in
 {
-  boot.loader.grub = {
+  options.samn.grub = {
+    catppuccin = lib.mkOption {
+      type = lib.types.enum [ "mocha" "macchiato" "frappe" "latte" ];
+      default = config.samn.catppuccin;
+      description = "Catppuccin flavor for grub";
+    };
+  };
+
+  config.boot.loader.grub = {
     enable = true;
     device = "nodev";
     efiSupport = true;
