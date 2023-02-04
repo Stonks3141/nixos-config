@@ -28,6 +28,17 @@ in
         bind=SUPER,17,workspace,8
         bind=SUPER,18,workspace,9
 
+        # Move current window to workspace
+        bind=SUPER_SHIFT,10,movetoworkspace,1
+        bind=SUPER_SHIFT,11,movetoworkspace,2
+        bind=SUPER_SHIFT,12,movetoworkspace,3
+        bind=SUPER_SHIFT,13,movetoworkspace,4
+        bind=SUPER_SHIFT,14,movetoworkspace,5
+        bind=SUPER_SHIFT,15,movetoworkspace,6
+        bind=SUPER_SHIFT,16,movetoworkspace,7
+        bind=SUPER_SHIFT,17,movetoworkspace,8
+        bind=SUPER_SHIFT,18,movetoworkspace,9
+
         # Move focus
         bind=SUPER,H,movefocus,l
         bind=SUPER,J,movefocus,d
@@ -60,7 +71,7 @@ in
         bind=,XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightnessctl set 5%-
         bind=,XF86MonBrightnessUp,exec,${pkgs.brightnessctl}/bin/brightnessctl set +5%
 
-        general:gaps_in=10
+        general:gaps_in=5
         general:gaps_out=10
         decoration:rounding=5
 
