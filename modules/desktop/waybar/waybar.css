@@ -22,7 +22,9 @@ window#waybar {
 }
 
 #workspaces button:hover {
-  background-color: @surface1;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  background-color: @surface0;
 }
 
 #workspaces button.focused {
