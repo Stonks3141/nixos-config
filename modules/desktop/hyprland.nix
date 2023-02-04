@@ -9,6 +9,9 @@ let
   volume = pkgs.writeScript "volume.nu" ''
     PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH ${./rofi-scripts/volume.nu} "$@"
   '';
+  waybar = pkgs.waybar.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../../patches/hyprland-waybar.patch ];
+  });
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
