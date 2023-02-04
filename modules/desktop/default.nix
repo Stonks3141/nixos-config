@@ -4,14 +4,17 @@
     ./hyprland.nix
     ./themes.nix
     ./waybar
-    ./rofi
+    ./rofi.nix
     ./mako.nix
   ];
 
   options.samn.desktop.enable = lib.mkEnableOption "desktop environment";
 
   config = {
-    samn.desktop.mako.enable = lib.mkDefault true;
+    samn.desktop = {
+      mako.enable = lib.mkDefault true;
+      rofi.enable = lib.mkDefault true;
+    };
 
     home-manager.users.samn = { pkgs, ... }: {
       home.packages = with pkgs; [
@@ -25,12 +28,12 @@
         grim
         slurp
       ];
-    };
 
-    home.sessionVariables = {
-      _JAVA_AWT_WM_NONREPARENTING = "1";
-      XDG_CURRENT_DESKTOP = "hyprland";
-      XDG_SESSION_TYPE = "wayland";
+      home.sessionVariables = {
+        _JAVA_AWT_WM_NONREPARENTING = "1";
+        XDG_CURRENT_DESKTOP = "hyprland";
+        XDG_SESSION_TYPE = "wayland";
+      };
     };
 
     services.dbus.enable = true;
