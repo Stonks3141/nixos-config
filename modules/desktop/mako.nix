@@ -1,4 +1,4 @@
-{ config, lib, ... }: 
+{ config, lib, ... }:
 let
   cfg = config.samn.desktop.mako;
 in
@@ -20,12 +20,13 @@ in
       borderRadius = 3;
       margin = "20";
 
-      extraConfig = builtins.readFile (pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "mako";
-        rev = "64ef71633528b50e5475755e50071584b54fa291";
-        sha256 = "sha256-J2PaPfBBWcqixQGo3eNVvLz2EZWD92RfD0MfbEDK/wA=";
-      } + /src/${cfg.catppuccin});
+      extraConfig = builtins.readFile (pkgs.fetchFromGitHub
+        {
+          owner = "catppuccin";
+          repo = "mako";
+          rev = "64ef71633528b50e5475755e50071584b54fa291";
+          sha256 = "sha256-J2PaPfBBWcqixQGo3eNVvLz2EZWD92RfD0MfbEDK/wA=";
+        } + /src/${cfg.catppuccin});
     };
   };
 }

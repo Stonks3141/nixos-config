@@ -1,10 +1,11 @@
 { config, lib, ... }: {
   imports = [
+    ./secrets.nix
     ./desktop
     ./applications
     ./fonts.nix
     ./system.nix
-    ./secrets.nix
+    ./network.nix
     ./grub.nix
   ];
 

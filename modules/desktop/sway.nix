@@ -107,7 +107,7 @@ in
           exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
           exec ${pkgs.greetd.gtkgreet}/bin/gtkgreet \
             -l \
-            -c "${if config.samn.system.wireguard.enable then
+            -c "${if config.samn.network.wireguard.enable then
               "sudo -E ${pkgs.iproute2}/bin/ip netns exec wireguard sudo -E -u #${builtins.toString config.users.users.samn.uid} "
               else ""} ${pkgs.sway}/bin/sway" \
             -s ${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-3.0/gtk-dark.css; \

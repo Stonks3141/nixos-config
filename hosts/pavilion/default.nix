@@ -23,12 +23,10 @@
   samn = {
     catppuccin = "macchiato";
     accent = "red";
-    system = {
-      stateVersion = "22.11";
-      wireguard = {
-        enable = true;
-        privateKeyFile = config.age.secrets."wireguard/pavilion.key".path;
-      };
+    system.stateVersion = "22.11";
+    network.wireguard = {
+      enable = true;
+      privateKeyFile = config.age.secrets."wireguard/pavilion.key".path;
     };
     desktop.enable = true;
   };
