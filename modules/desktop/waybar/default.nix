@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
-  powerScript = pkgs.writeScript "power.nu" (builtins.readFile ../power.nu);
+  power = pkgs.writeScript "power.nu" (builtins.readFile ../rofi-scripts/power.nu);
+  wifi = pkgs.writeScript "wifi.nu" (builtins.readFile ../rofi-scripts/wifi.nu);
 in
 {
   home-manager.users.samn = { ... }: {
@@ -21,7 +22,7 @@ in
 
         "custom/power" = {
           format = " ";
-          on-click = "${pkgs.rofi}/bin/rofi -show power -modes power:${powerScript}";
+          on-click = "${pkgs.rofi}/bin/rofi -show power -modes power:${power}";
         };
 
         clock = {
@@ -50,7 +51,7 @@ in
           format-ethernet = " {ifname}";
           format-wifi = "直 {signalStrength}%";
           tooltip-format-wifi = "{essid}";
-          on-click = pkgs.writeScript "wifi.nu" (builtins.readFile ./wifi.nu);
+          on-click = wifi;
         };
 
         pulseaudio = {

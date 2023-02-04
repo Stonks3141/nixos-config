@@ -8,9 +8,9 @@ let
   baseColor = "24273a";
   accentColor = "ed8796";
   screenshot = pkgs.writeScript "screenshot.nu" (builtins.readFile ./screenshot.nu);
-  power = pkgs.writeScript "power.nu" (builtins.readFile ./power.nu);
+  power = pkgs.writeScript "power.nu" (builtins.readFile ./rofi-scripts/power.nu);
   volume = pkgs.writeScript "volume.nu" ''
-    PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH ${./volume.nu} "$@"
+    PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH ${./rofi-scripts/volume.nu} "$@"
   '';
 in
 {
