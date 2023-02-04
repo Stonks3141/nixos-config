@@ -1,4 +1,3 @@
-
 { config, lib, ... }:
 let
   cfg = config.samn.applications.bottom;
