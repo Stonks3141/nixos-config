@@ -36,7 +36,7 @@ in
           format-icons = {
             full = "";
             discharging = [ "" "" "" "" "" "" "" "" "" "" ];
-            # TODO: Add missing icons if nerd fonts ever get their shit together (nerd-fonts#279).
+            # TODO: Add missing icons (github:ryanoasis/nerd-fonts#279).
             charging = [ " " " " " " " " " " " " " " " " " " " " ];
           };
           tooltip = false;
