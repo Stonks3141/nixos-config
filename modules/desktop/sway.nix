@@ -62,11 +62,9 @@ in
           "9580:109:GAOMON_Gaomon_Tablet_Dial" = { };
         };
         output = {
-          "eDP-1" = { bg = "${wallpaper} stretch"; };
-          "HDMI-A-1" = {
-            bg = "${wallpaper} stretch";
-            pos = "1920 0";
-          };
+          "eDP-1".pos = "0 0";
+          "HDMI-A-1".pos = "1920 0";
+          "*".bg = "${wallpaper} stretch";
         };
         keybindings = lib.mkOptionDefault {
           # Exit
