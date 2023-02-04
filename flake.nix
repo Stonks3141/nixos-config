@@ -3,31 +3,15 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
-    flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-    };
-    utils = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    agenix = {
-      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    agenix.url = "github:ryantm/agenix";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
-  outputs = inputs@{ self, nixpkgs, nur, home-manager, utils, agenix, ... }: utils.lib.mkFlake {
+  outputs = inputs@{ self, nixpkgs, nur, home-manager, utils, agenix, hyprland, ... }: utils.lib.mkFlake {
     inherit self inputs;
     channels.nixpkgs = {
       input = nixpkgs;
@@ -35,7 +19,9 @@
       overlaysBuilder = _: [ nur.overlay ];
     };
     hostDefaults.modules = [
-      home-manager.nixosModule
+      home-manager.nixosModules.default {
+        home-manager.sharedModules = [ hyprland.homeManagerModules.default ];
+      }
       agenix.nixosModules.default
       ./modules
     ];
