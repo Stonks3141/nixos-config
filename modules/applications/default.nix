@@ -7,11 +7,13 @@ in
     ./nushell
     ./bat.nix
     ./kitty.nix
+    ./helix.nix
   ];
 
   samn.applications = {
     bat.enable = lib.mkDefault true;
     kitty.enable = lib.mkDefault true;
+    helix.enable = lib.mkDefault true;
   };
 
   home-manager.users.samn = { pkgs, ... }: {
@@ -120,7 +122,6 @@ in
       '';
     };
 
-
     programs.bottom = {
       enable = true;
       settings.colors = {
@@ -165,40 +166,6 @@ in
     programs.gpg = {
       enable = true;
       mutableKeys = false;
-    };
-
-    programs.helix = {
-      enable = true;
-      settings = {
-        theme = "my_catppuccin_macchiato";
-        editor = {
-          gutters = [ "diagnostics" "spacer" "line-numbers" "spacer" "diff" ];
-          bufferline = "multiple";
-          mouse = false;
-          indent-guides.render = true;
-        };
-      };
-      languages = [
-        {
-          name = "rust";
-          config.checkOnSave.command = "clippy";
-        }
-        {
-          name = "nix";
-          formatter.command = "nixpkgs-fmt";
-        }
-      ];
-      themes.my_catppuccin_macchiato = {
-        inherits = "catppuccin_macchiato";
-        hint.fg = "text";
-        info.fg = "blue";
-        warning.fg = "peach";
-        error.fg = "red";
-        "diagnostic.hint".underline = { style = "curl"; color = "text"; };
-        "diagnostic.info".underline = { style = "curl"; color = "blue"; };
-        "diagnostic.warning".underline = { style = "curl"; color = "peach"; };
-        "diagnostic.error".underline = { style = "curl"; color = "red"; };
-      };
     };
   };
 }
