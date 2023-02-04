@@ -8,12 +8,14 @@ in
     ./bat.nix
     ./kitty.nix
     ./helix.nix
+    ./bottom.nix
   ];
 
   samn.applications = {
     bat.enable = lib.mkDefault true;
     kitty.enable = lib.mkDefault true;
     helix.enable = lib.mkDefault true;
+    bottom.enable = lib.mkDefault true;
   };
 
   home-manager.users.samn = { pkgs, ... }: {
@@ -120,47 +122,6 @@ in
           branch_fg: Rgb(139, 213, 202)
         )
       '';
-    };
-
-    programs.bottom = {
-      enable = true;
-      settings.colors = {
-        # Source: https://github.com/catppuccin/bottom/blob/main/themes/macchiato.toml
-        #
-        # Copyright (c) 2021 Catppuccin
-        #
-        # Permission is hereby granted, free of charge, to any person obtaining a copy
-        # of this software and associated documentation files (the "Software"), to deal
-        # in the Software without restriction, including without limitation the rights
-        # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        # copies of the Software, and to permit persons to whom the Software is
-        # furnished to do so, subject to the following conditions:
-        #
-        # The above copyright notice and this permission notice shall be included in all
-        # copies or substantial portions of the Software.
-
-        table_header_color = "#f4dbd6";
-        all_cpu_color = "#f4dbd6";
-        avg_cpu_color = "#ee99a0";
-        cpu_core_colors = [ "#ed8796" "#f5a97f" "#eed49f" "#a6da95" "#7dc4e4" "#c6a0f6" ];
-        ram_color = "#a6da95";
-        swap_color = "#f5a97f";
-        rx_color = "#a6da95";
-        tx_color = "#ed8796";
-        widget_title_color = "#f0c6c6";
-        border_color = "#5b6078";
-        highlighted_border_color = "#f5bde6";
-        text_color = "#cad3f5";
-        graph_color = "#a5adcb";
-        cursor_color = "#f5bde6";
-        selected_text_color = "#181926";
-        selected_bg_color = "#c6a0f6";
-        high_battery_color = "#a6da95";
-        medium_battery_color = "#eed49f";
-        low_battery_color = "#ed8796";
-        gpu_core_colors = [ "#7dc4e4" "#c6a0f6" "#ed8796" "#f5a97f" "#eed49f" "#a6da95" ];
-        arc_color = "#91d7e3";
-      };
     };
 
     programs.gpg = {
