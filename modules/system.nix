@@ -2,8 +2,6 @@
   options.samn.system.stateVersion = lib.mkOption { type = lib.types.str; };
 
   config = {
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
     services.udev.extraRules = ''
       SUBSYSTEM=="usb", ATTR{idVendor}=="2207", ATTR{idProduct}=="0011", MODE="0660",
       GROUP="plugdev", SYMLINK+="android%n"

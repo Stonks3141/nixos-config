@@ -15,8 +15,6 @@ let
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
-    home.packages = with pkgs; [ autotiling ];
-
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
@@ -93,8 +91,8 @@ in
         exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
         exec systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
         exec systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-        exec mako
-        exec_always autotiling
+        exec ${pkgs.mako}/bin/mako
+        exec_always ${pkgs.autotiling}/bin/autotiling
       '';
     };
   };
