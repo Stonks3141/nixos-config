@@ -3,7 +3,10 @@ let
   nur = pkgs.nur;
 in
 {
-  imports = [ ./nushell ];
+  imports = [
+    ./nushell
+    ./bat.nix
+  ];
 
   home-manager.users.samn = { pkgs, ... }: {
     home.packages = with pkgs; [
@@ -54,9 +57,7 @@ in
         size = 10;
       };
       theme = "Catppuccin-Macchiato";
-      settings = {
-        enable_audio_bell = false;
-      };
+      settings.enable_audio_bell = false;
     };
 
     programs.git = {
@@ -124,17 +125,6 @@ in
       '';
     };
 
-    programs.bat = {
-      enable = true;
-      config.theme = "Catppuccin-macchiato";
-      themes."Catppuccin-macchiato" = builtins.readFile (pkgs.fetchFromGitHub
-        {
-          owner = "catppuccin";
-          repo = "bat";
-          rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
-          sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-        } + /Catppuccin-macchiato.tmTheme);
-    };
 
     programs.bottom = {
       enable = true;
