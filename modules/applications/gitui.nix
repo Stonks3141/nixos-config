@@ -30,12 +30,13 @@ in
           open_help: Some(( code: F(1), modifiers: ( bits: 0,),)),
         )
       '';
-      theme = builtins.readFile (pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "gitui";
-        rev = "ff1e802cfff3d5ff41b0d829a3df1da8087b1265";
-        sha256 = "sha256-frkGtsk/VuS6MYUf7S2hqNHhTaV6S0Mv2UuttCgvimk=";
-      } + /theme/${cfg.catppuccin}.ron);
+      theme = builtins.readFile (pkgs.fetchFromGitHub
+        {
+          owner = "catppuccin";
+          repo = "gitui";
+          rev = "ff1e802cfff3d5ff41b0d829a3df1da8087b1265";
+          sha256 = "sha256-frkGtsk/VuS6MYUf7S2hqNHhTaV6S0Mv2UuttCgvimk=";
+        } + /theme/${cfg.catppuccin}.ron);
     };
   };
 }
