@@ -1,4 +1,5 @@
-{ config, lib, ... }: let
+{ config, lib, ... }:
+let
   cfg = config.samn.applications.bat;
   flavor = cfg.catppuccin;
 in
@@ -11,7 +12,7 @@ in
       description = "Catppuccin flavor for bat";
     };
   };
-  
+
   config.home-manager.users.samn = { pkgs, ... }: {
     home.activation = {
       batCache = "${pkgs.bat}/bin/bat cache --build";

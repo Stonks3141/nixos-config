@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   nur = pkgs.nur;
 in
@@ -6,7 +6,13 @@ in
   imports = [
     ./nushell
     ./bat.nix
+    ./kitty.nix
   ];
+
+  samn.applications = {
+    bat.enable = lib.mkDefault true;
+    kitty.enable = lib.mkDefault true;
+  };
 
   home-manager.users.samn = { pkgs, ... }: {
     home.packages = with pkgs; [
@@ -47,17 +53,6 @@ in
         firefox-color
         stylus
       ];
-    };
-
-    programs.kitty = {
-      enable = true;
-      font = {
-        package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
-        name = "FiraCode Nerd Font";
-        size = 10;
-      };
-      theme = "Catppuccin-Macchiato";
-      settings.enable_audio_bell = false;
     };
 
     programs.git = {
