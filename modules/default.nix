@@ -8,10 +8,32 @@
     ./grub.nix
   ];
 
-  options.samn.catppuccin = lib.mkOption {
-    type = lib.types.enum [ "mocha" "macchiato" "frappe" "latte" ];
-    default = "latte";
-    description = "Global catppuccin flavor";
+  options.samn = {
+    catppuccin = lib.mkOption {
+      type = lib.types.enum [ "mocha" "macchiato" "frappe" "latte" ];
+      default = "latte";
+      description = "Global catppuccin flavor";
+    };
+    accent = lib.mkOption {
+      type = lib.types.enum [
+        "rosewater"
+        "flamingo"
+        "pink"
+        "mauve"
+        "red"
+        "maroon"
+        "peach"
+        "yellow"
+        "green"
+        "teal"
+        "sky"
+        "sapphire"
+        "blue"
+        "lavender"
+      ];
+      default = "rosewater";
+      description = "Global catppuccin accent color";
+    };
   };
 
   config = {
