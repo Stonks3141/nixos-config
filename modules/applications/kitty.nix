@@ -2,11 +2,8 @@
 let
   cfg = config.samn.applications.kitty;
   # capitalize first letter
-  flavor = with lib; strings.concatStrings (
-    lists.imap0
-      (i: v: if i == 0 then strings.toUpper v else v)
-      (strings.stringToCharacters cfg.catppuccin)
-  );
+  flavor = with lib.strings;
+    concatImapStrings (i: v: if i == 1 then toUpper v else v) (stringToCharacters cfg.catppuccin);
 in
 {
   options.samn.applications.kitty = {
