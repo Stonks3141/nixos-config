@@ -27,6 +27,12 @@
       ];
     };
 
+    home.sessionVariables = {
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+      XDG_CURRENT_DESKTOP = "hyprland";
+      XDG_SESSION_TYPE = "wayland";
+    };
+
     services.dbus.enable = true;
     xdg.portal = {
       enable = true;

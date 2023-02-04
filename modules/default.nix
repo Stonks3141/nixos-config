@@ -44,22 +44,12 @@
       trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
 
-    environment.variables = {
-      XDG_CURRENT_DESKTOP = "sway";
-      XDG_SESSION_TYPE = "wayland";
-    };
-
-    environment.sessionVariables = {
-      XDG_CURRENT_DESKTOP = "sway";
-      XDG_SESSION_TYPE = "wayland";
-    };
-
     home-manager.users.samn = { pkgs, ... }: {
       home.stateVersion = config.samn.system.stateVersion;
       home.sessionVariables = {
-        EDITOR = "hx";
-        BROWSER = "firefox";
-        TERMINAL = "kitty";
+        EDITOR = "${pkgs.helix}/bin/hx";
+        BROWSER = "${pkgs.firefox}/bin/firefox";
+        TERMINAL = "${pkgs.kitty}/bin/kitty";
         XDG_DOWNLOADS_DIR = "~/Downloads";
       };
       nixpkgs.config.allowUnfree = true;
