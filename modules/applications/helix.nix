@@ -19,7 +19,7 @@ in
         theme = "ctp";
         editor = {
           gutters = [ "diagnostics" "spacer" "line-numbers" "spacer" "diff" ];
-          bufferline = "multiple";
+          bufferline = "always";
           mouse = false;
           indent-guides.render = true;
         };
