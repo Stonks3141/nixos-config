@@ -48,6 +48,7 @@
       home.stateVersion = config.samn.system.stateVersion;
       home.sessionVariables = {
         EDITOR = "${pkgs.helix}/bin/hx";
+        GIT_EDITOR = "${pkgs.helix}/bin/hx";
         BROWSER = "${pkgs.firefox}/bin/firefox";
         TERMINAL = "${pkgs.kitty}/bin/kitty";
         XDG_DOWNLOADS_DIR = "~/Downloads";
