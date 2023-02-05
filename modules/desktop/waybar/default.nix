@@ -5,6 +5,15 @@ let
 in
 {
   home-manager.users.samn = { ... }: {
+    nixpkgs.overlays = [
+      (self: super: {
+        waybar = super.waybar.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ../../../patches/hyprland-waybar.patch ];
+          mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ];
+        });
+      })
+    ];
+
     programs.waybar = {
       enable = true;
       settings.mainBar = {
@@ -18,11 +27,13 @@ in
 
         "custom/nix" = {
           format = " ";
+          tooltip = false;
         };
 
         "custom/power" = {
           format = " ";
           on-click = "${pkgs.rofi}/bin/rofi -show power -modes power:${power}";
+          tooltip = false;
         };
 
         clock = {
