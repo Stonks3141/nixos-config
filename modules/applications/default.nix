@@ -45,10 +45,8 @@ in
       vlc
       discord
       android-studio
+      jetbrains.idea-community
       prusa-slicer
-      (tor-browser-bundle-bin.override {
-        useHardenedMalloc = false;
-      })
     ];
 
     home.sessionVariables = {
