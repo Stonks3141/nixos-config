@@ -8,8 +8,6 @@
     ./mako.nix
   ];
 
-  options.samn.desktop.enable = lib.mkEnableOption "desktop environment";
-
   config = {
     samn.desktop = {
       mako.enable = lib.mkDefault true;
