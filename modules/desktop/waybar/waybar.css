@@ -3,8 +3,16 @@
   font-size: 13;
 }
 
+window#waybar > box {
+  margin: 10px;
+  margin-bottom: 0;
+  background-color: @crust;
+  border-radius: 10px;
+  border: 1px solid @base;
+}
+
 window#waybar {
-  background-color: @base;
+  background-color: transparent;
   color: @text;
 }
 
@@ -18,7 +26,7 @@ window#waybar {
 
 #workspaces button {
   border-radius: 0;
-  padding: 0 10px;
+  padding: 0 15px;
 }
 
 #workspaces button:hover {
@@ -27,9 +35,9 @@ window#waybar {
   background-color: @surface0;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
   background-color: @sapphire;
-  color: @base;
+  color: @crust;
 }
 
 #mode {
@@ -41,7 +49,7 @@ window#waybar {
 #backlight,
 #network,
 #pulseaudio {
-  background-color: alpha(@surface0, 0.5);
+  background-color: @base;
   border-radius: 15px;
   margin: 5px;
   padding: 0 15px;
