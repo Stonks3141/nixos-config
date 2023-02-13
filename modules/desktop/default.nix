@@ -1,8 +1,8 @@
 { lib, pkgs, ... }: {
   imports = [
-    ./sway.nix
     ./hyprland.nix
     ./themes.nix
+    ./greetd.nix
     ./waybar
     ./rofi.nix
     ./mako.nix
@@ -25,11 +25,11 @@
         swaybg
         grim
         slurp
+        libsForQt5.polkit-kde-agent
       ];
 
       home.sessionVariables = {
         _JAVA_AWT_WM_NONREPARENTING = "1";
-        XDG_CURRENT_DESKTOP = "hyprland";
         XDG_SESSION_TYPE = "wayland";
       };
     };
