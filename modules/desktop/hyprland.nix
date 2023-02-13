@@ -12,6 +12,12 @@ let
 in
 {
   home-manager.users.samn = { pkgs, ... }: {
+    home.sessionVariables = {
+      HYPRLAND_LOG_WLR = 1;
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig = ''
