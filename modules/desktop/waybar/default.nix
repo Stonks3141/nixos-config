@@ -32,7 +32,7 @@ in
 
         "custom/power" = {
           format = " ";
-          on-click = "${pkgs.rofi}/bin/rofi -show power -modes power:${power}";
+          on-click = "rofi -show power -modes power:${power}";
           tooltip = false;
         };
 
