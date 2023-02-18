@@ -95,6 +95,7 @@
     programs.adb.enable = true;
 
     virtualisation.virtualbox.host.enable = true;
+    virtualisation.docker.enable = true;
 
     users.mutableUsers = false;
     users.users.samn = {
@@ -103,7 +104,7 @@
       description = "Sam Nystrom";
       uid = 1000;
       shell = pkgs.nushell;
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" "adbusers" "vboxusers" "plugdev" ];
+      extraGroups = [ "wheel" "video" "audio" "kvm" "adbusers" "vboxusers" "plugdev" "docker" ];
       passwordFile = config.age.secrets."passwords/users/samn".path;
     };
 
