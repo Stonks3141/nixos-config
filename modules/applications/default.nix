@@ -10,6 +10,7 @@ in
     ./helix.nix
     ./bottom.nix
     ./gitui.nix
+    ./starship.nix
   ];
 
   samn.applications = {
@@ -18,13 +19,11 @@ in
     helix.enable = lib.mkDefault true;
     bottom.enable = lib.mkDefault true;
     gitui.enable = lib.mkDefault true;
+    starship.enable = lib.mkDefault true;
   };
 
   home-manager.users.samn = { pkgs, ... }: {
     home.packages = with pkgs; [
-      # Prompt
-      starship
-
       # CLIs
       ripgrep
       zoxide
