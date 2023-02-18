@@ -19,9 +19,11 @@
       overlaysBuilder = _: [ nur.overlay ];
     };
     hostDefaults.modules = [
-      home-manager.nixosModules.default {
+      home-manager.nixosModules.default
+      {
         home-manager.sharedModules = [ hyprland.homeManagerModules.default ];
       }
+      hyprland.nixosModules.default
       agenix.nixosModules.default
       ./modules
     ];

@@ -11,6 +11,7 @@ let
   '';
 in
 {
+  programs.hyprland.enable = true;
   home-manager.users.samn = { pkgs, ... }: {
     home.sessionVariables = {
       HYPRLAND_LOG_WLR = 1;
@@ -86,11 +87,10 @@ in
         input:left_handed=true
         input:follow_mouse=2
 
-        misc:no_vfr=false
-
         exec-once=${pkgs.swaybg}/bin/swaybg -i ${wallpaper}
         exec-once=${pkgs.waybar}/bin/waybar
         exec-once=${pkgs.mako}/bin/mako
+        exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland XDG_SESSION_TYPE=wayland
         exec-once=${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}' timeout 150 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}'
       '';
     };
