@@ -33,7 +33,7 @@ module completions {
     --write-fetch-head                            # Write fetched refs in FETCH_HEAD (default)
     --no-write-fetch-head                         # Do not write FETCH_HEAD
     --force(-f)                                   # Always update the local branch
-    --keep(-k)                                    # Keep dowloaded pack
+    --keep(-k)                                    # Keep downloaded pack
     --multiple                                    # Allow several arguments to be specified
     --auto-maintenance                            # Run 'git maintenance run --auto' at the end (default)
     --no-auto-maintenance                         # Don't run 'git maintenance' at the end
@@ -101,7 +101,6 @@ module completions {
     --dry-run(-n)                                   # dry run
     --exec: string                                  # receive pack program
     --follow-tags                                   # push missing but relevant tags
-    --force-with-lease                              # require old value of ref to be at this value
     --force(-f)                                     # force updates
     --ipv4(-4)                                      # use IPv4 addresses only
     --ipv6(-6)                                      # use IPv6 addresses only
@@ -127,7 +126,7 @@ module completions {
 # Get just the extern definitions without the custom completion commands
 use completions *
 
-# for more information on themes see
+# For more information on themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
 let dark_theme = {
     # color for nushell primitives
@@ -135,11 +134,35 @@ let dark_theme = {
     leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
     header: green_bold
     empty: blue
-    bool: white
+    # Closures can be used to choose colors for specific values.
+    # The value (in this case, a bool) is piped into the closure.
+    bool: { if $in { 'light_cyan' } else { 'light_gray' } }
     int: white
-    filesize: white
+    filesize: {|e|
+      if $e == 0b {
+        'white'
+      } else if $e < 1mb {
+        'cyan'
+      } else { 'blue' }
+    }
     duration: white
-    date: white
+    date: { (date now) - $in |
+      if $in < 1hr {
+        '#e61919'
+      } else if $in < 6hr {
+        '#e68019'
+      } else if $in < 1day {
+        '#e5e619'
+      } else if $in < 3day {
+        '#80e619'
+      } else if $in < 1wk {
+        '#19e619'
+      } else if $in < 6wk {
+        '#19e5e6'
+      } else if $in < 52wk {
+        '#197fe6'
+      } else { 'light_gray' }
+    }
     range: white
     float: white
     string: white
@@ -152,41 +175,47 @@ let dark_theme = {
     block: white
     hints: dark_gray
 
-    # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: "#FFFFFF" bg: "#FF0000" attr: b}
+    shape_and: purple_bold
     shape_binary: purple_bold
+    shape_block: blue_bold
     shape_bool: light_cyan
-    shape_int: purple_bold
-    shape_float: purple_bold
-    shape_range: yellow_bold
-    shape_internalcall: cyan_bold
+    shape_custom: green
+    shape_datetime: cyan_bold
+    shape_directory: cyan
     shape_external: cyan
     shape_externalarg: green_bold
+    shape_filepath: cyan
+    shape_flag: blue_bold
+    shape_float: purple_bold
+    # shapes are used to change the cli syntax highlighting
+    shape_garbage: { fg: "#FFFFFF" bg: "#FF0000" attr: b}
+    shape_globpattern: cyan_bold
+    shape_int: purple_bold
+    shape_internalcall: cyan_bold
+    shape_list: cyan_bold
     shape_literal: blue
+    shape_matching_brackets: { attr: u }
+    shape_nothing: light_cyan
     shape_operator: yellow
+    shape_or: purple_bold
+    shape_pipe: purple_bold
+    shape_range: yellow_bold
+    shape_record: cyan_bold
+    shape_redirection: purple_bold
     shape_signature: green_bold
     shape_string: green
     shape_string_interpolation: cyan_bold
-    shape_datetime: cyan_bold
-    shape_list: cyan_bold
     shape_table: blue_bold
-    shape_record: cyan_bold
-    shape_block: blue_bold
-    shape_filepath: cyan
-    shape_directory: cyan
-    shape_globpattern: cyan_bold
     shape_variable: purple
-    shape_flag: blue_bold
-    shape_custom: green
-    shape_nothing: light_cyan
-    shape_matching_brackets: { attr: u }
 }
 
 # External completer example
-# let carapace_completer = {|spans| 
+# let carapace_completer = {|spans|
 #     carapace $spans.0 nushell $spans | from json
 # }
 
+
+# The default config record. This is where much of your global configuration is setup.
 let-env config = {
   ls: {
     use_ls_colors: true # use the LS_COLORS environment variable to colorize output
@@ -285,12 +314,11 @@ let-env config = {
     metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
     format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   }
-  # TODO: nu 0.75
-  # cursor_shape: {
-  #   emacs: line # block, underscore, line (line is the default)
-  #   vi_insert: block # block, underscore, line (block is the default)
-  #   vi_normal: underscore # block, underscore, line  (underscore is the default)
-  # }
+  cursor_shape: {
+    emacs: line # block, underscore, line (line is the default)
+    vi_insert: block # block, underscore, line (block is the default)
+    vi_normal: underscore # block, underscore, line  (underscore is the default)
+  }
   color_config: $dark_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
   use_grid_icons: true
   footer_mode: "25" # always, never, number_of_rows, auto
