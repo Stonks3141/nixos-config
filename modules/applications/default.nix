@@ -54,12 +54,14 @@ in
 
     programs.firefox = {
       enable = true;
-      extensions = with nur.repos.rycee.firefox-addons; [
-        ublock-origin
-        bitwarden
-        firefox-color
-        stylus
-      ];
+      profiles.default = {
+        extensions = with nur.repos.rycee.firefox-addons; [
+          ublock-origin
+          bitwarden
+          firefox-color
+          stylus
+        ];
+      };
     };
 
     programs.git = {
