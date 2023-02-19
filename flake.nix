@@ -34,6 +34,7 @@
       devShell = channels.nixpkgs.mkShell {
         name = "nixos-config";
         packages = with channels.nixpkgs; [
+          just
           nil
           nixpkgs-fmt
           agenix.packages.x86_64-linux.default
