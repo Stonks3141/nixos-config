@@ -75,8 +75,6 @@
       "8bd5ca"
     ];
 
-    hardware.opentabletdriver.enable = true;
-
     # services.openssh = {
     #   hostKeys = [
     #     {
