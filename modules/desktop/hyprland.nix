@@ -78,14 +78,23 @@ in
         bind=,XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightnessctl set 5%-
         bind=,XF86MonBrightnessUp,exec,${pkgs.brightnessctl}/bin/brightnessctl set +5%
 
-        general:gaps_in=5
-        general:gaps_out=10
+        windowrule=float,Rofi
+
+        general {
+          gaps_in=5
+          gaps_out=10
+          col.active_border=0xff939ab7
+          col.inactive_border=0xff363a4f
+        }
+
         decoration:rounding=5
 
-        input:repeat_rate=40
-        input:repeat_delay=300
-        input:left_handed=true
-        input:follow_mouse=2
+        input {
+          repeat_rate=40
+          repeat_delay=300
+          left_handed=true
+          follow_mouse=2
+        }
 
         exec-once=${pkgs.swaybg}/bin/swaybg -i ${wallpaper}
         exec-once=${pkgs.waybar}/bin/waybar
