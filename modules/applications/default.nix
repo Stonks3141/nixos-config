@@ -6,6 +6,7 @@
     ./helix.nix
     ./bottom.nix
     ./gitui.nix
+    ./aerc.nix
     ./starship.nix
     ./firefox.nix
   ];
