@@ -52,6 +52,8 @@
         BROWSER = "${pkgs.firefox}/bin/firefox";
         TERMINAL = "${pkgs.kitty}/bin/kitty";
         XDG_DOWNLOADS_DIR = "~/Downloads";
+        XDG_CONFIG_HOME = "~/.config";
+        XDG_DATA_HOME = "~/.local/share";
       };
       nixpkgs.config.allowUnfree = true;
     };
