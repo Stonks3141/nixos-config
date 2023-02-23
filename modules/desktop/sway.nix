@@ -4,9 +4,6 @@ let
     path = ./wallpaper.jpg;
     name = "wallpaper";
   };
-  gtkTheme = config.home-manager.users.samn.gtk.theme;
-  baseColor = "24273a";
-  accentColor = "ed8796";
   screenshot = pkgs.writeScript "screenshot.nu" (builtins.readFile ./screenshot.nu);
   power = pkgs.writeScript "power.nu" (builtins.readFile ./rofi-scripts/power.nu);
   volume = pkgs.writeScript "volume.nu" ''
@@ -22,23 +19,29 @@ in
       config = rec {
         modifier = "Mod4";
         gaps.inner = 10;
-        window.border = 2;
-        colors = {
-          focused = {
-            background = "#285577";
-            border = "#${accentColor}";
-            childBorder = "#${accentColor}";
-            indicator = "#${accentColor}";
-            text = "#ffffff";
+        window.border = 1;
+        colors =
+          let
+            baseColor = "363a4f";
+            accentColor = "939ab7";
+          in
+          rec {
+            focused = {
+              background = "#285577";
+              border = "#${accentColor}";
+              childBorder = "#${accentColor}";
+              indicator = "#${accentColor}";
+              text = "#ffffff";
+            };
+            unfocused = {
+              background = "#222222";
+              border = "#${baseColor}";
+              childBorder = "#${baseColor}";
+              indicator = "#${baseColor}";
+              text = "#888888";
+            };
+            focusedInactive = unfocused;
           };
-          unfocused = {
-            background = "#222222";
-            border = "#${baseColor}";
-            childBorder = "#${baseColor}";
-            indicator = "#292d2e";
-            text = "#888888";
-          };
-        };
         terminal = "kitty";
         focus.followMouse = false;
         startup = [
@@ -97,6 +100,7 @@ in
 
   services.greetd =
     let
+      gtkTheme = config.home-manager.users.samn.gtk.theme;
       swayConfig = pkgs.writeText "sway-config"
         ''
           include ${pkgs.sway}/etc/sway/config

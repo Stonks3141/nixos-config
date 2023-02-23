@@ -95,15 +95,17 @@
     virtualisation.virtualbox.host.enable = true;
     virtualisation.docker.enable = true;
 
-    users.mutableUsers = false;
-    users.users.samn = {
-      isNormalUser = true;
-      home = "/home/samn";
-      description = "Sam Nystrom";
-      uid = 1000;
-      shell = pkgs.nushell;
-      extraGroups = [ "wheel" "video" "audio" "kvm" "adbusers" "vboxusers" "plugdev" "docker" ];
-      passwordFile = config.age.secrets."passwords/users/samn".path;
+    users = {
+      mutableUsers = false;
+      users.samn = {
+        isNormalUser = true;
+        home = "/home/samn";
+        description = "Sam Nystrom";
+        uid = 1000;
+        shell = pkgs.nushell;
+        extraGroups = [ "wheel" "video" "audio" "kvm" "adbusers" "vboxusers" "plugdev" "docker" ];
+        passwordFile = config.age.secrets."passwords/users/samn".path;
+      };
     };
 
     # This value determines the NixOS release from which the default
