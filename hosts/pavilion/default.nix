@@ -28,6 +28,5 @@
       enable = true;
       privateKeyFile = config.age.secrets."wireguard/pavilion.key".path;
     };
-    desktop.enable = true;
   };
 }

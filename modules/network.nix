@@ -15,6 +15,7 @@ in
     networking = {
       wireless = {
         enable = true;
+        userControlled.enable = true;
         environmentFile = config.age.secrets."networks".path;
         networks = {
           "Yosemite 2".psk = "@HOME_PSK@";

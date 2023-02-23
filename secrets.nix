@@ -6,6 +6,7 @@ let
 in
 {
   "secrets/passwords/users/samn.age".publicKeys = hosts ++ [ samn ];
+  "secrets/passwords/email/samuel.l.nystrom_at_gmail.com.age".publicKeys = hosts ++ [ samn ];
   "secrets/networks.age".publicKeys = hosts ++ users;
   "secrets/wireguard/pavilion.key.age".publicKeys = [ pavilion ] ++ users;
 }

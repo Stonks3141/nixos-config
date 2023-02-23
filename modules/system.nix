@@ -2,8 +2,6 @@
   options.samn.system.stateVersion = lib.mkOption { type = lib.types.str; };
 
   config = {
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
     services.udev.extraRules = ''
       SUBSYSTEM=="usb", ATTR{idVendor}=="2207", ATTR{idProduct}=="0011", MODE="0660",
       GROUP="plugdev", SYMLINK+="android%n"
@@ -77,8 +75,6 @@
       "8bd5ca"
     ];
 
-    hardware.opentabletdriver.enable = true;
-
     # services.openssh = {
     #   hostKeys = [
     #     {
@@ -97,6 +93,7 @@
     programs.adb.enable = true;
 
     virtualisation.virtualbox.host.enable = true;
+    virtualisation.docker.enable = true;
 
     users.mutableUsers = false;
     users.users.samn = {
@@ -105,7 +102,7 @@
       description = "Sam Nystrom";
       uid = 1000;
       shell = pkgs.nushell;
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" "adbusers" "vboxusers" "plugdev" ];
+      extraGroups = [ "wheel" "video" "audio" "kvm" "adbusers" "vboxusers" "plugdev" "docker" ];
       passwordFile = config.age.secrets."passwords/users/samn".path;
     };
 

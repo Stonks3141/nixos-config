@@ -38,23 +38,22 @@
   };
 
   config = {
-    environment.variables = {
-      XDG_CURRENT_DESKTOP = "sway";
-      XDG_SESSION_TYPE = "wayland";
-    };
-
-    environment.sessionVariables = {
-      XDG_CURRENT_DESKTOP = "sway";
-      XDG_SESSION_TYPE = "wayland";
+    nix.settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
 
     home-manager.users.samn = { pkgs, ... }: {
       home.stateVersion = config.samn.system.stateVersion;
       home.sessionVariables = {
-        EDITOR = "hx";
-        BROWSER = "firefox";
-        TERMINAL = "kitty";
+        EDITOR = "${pkgs.helix}/bin/hx";
+        GIT_EDITOR = "${pkgs.helix}/bin/hx";
+        BROWSER = "${pkgs.firefox}/bin/firefox";
+        TERMINAL = "${pkgs.kitty}/bin/kitty";
         XDG_DOWNLOADS_DIR = "~/Downloads";
+        XDG_CONFIG_HOME = "~/.config";
+        XDG_DATA_HOME = "~/.local/share";
       };
       nixpkgs.config.allowUnfree = true;
     };

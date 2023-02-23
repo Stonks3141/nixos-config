@@ -1,16 +1,18 @@
 { lib, pkgs, ... }: {
   imports = [
-    ./sway.nix
+    ./hyprland.nix
     ./themes.nix
+    ./greetd.nix
     ./waybar
-    ./rofi
+    ./rofi.nix
     ./mako.nix
   ];
 
-  options.samn.desktop.enable = lib.mkEnableOption "desktop environment";
-
   config = {
-    samn.desktop.mako.enable = lib.mkDefault true;
+    samn.desktop = {
+      mako.enable = lib.mkDefault true;
+      rofi.enable = lib.mkDefault true;
+    };
 
     home-manager.users.samn = { pkgs, ... }: {
       home.packages = with pkgs; [
@@ -23,7 +25,13 @@
         swaybg
         grim
         slurp
+        libsForQt5.polkit-kde-agent
       ];
+
+      home.sessionVariables = {
+        _JAVA_AWT_WM_NONREPARENTING = "1";
+        XDG_SESSION_TYPE = "wayland";
+      };
     };
 
     services.dbus.enable = true;

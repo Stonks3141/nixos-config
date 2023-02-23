@@ -6,7 +6,7 @@ def main [choice?: string] {
     ['Log Out' 'Power Off' 'Restart'] | to text
   } else {
     {
-      'Log Out': {swaymsg exit}
+      'Log Out': {hyprctl dispatch exit}
       'Power Off': {systemctl poweroff}
       'Restart': {systemctl reboot}
     } | get $choice | do $in

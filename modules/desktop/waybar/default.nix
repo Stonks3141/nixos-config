@@ -5,24 +5,35 @@ let
 in
 {
   home-manager.users.samn = { ... }: {
+    nixpkgs.overlays = [
+      (self: super: {
+        waybar = super.waybar.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ../../../patches/hyprland-waybar.patch ];
+          mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ];
+        });
+      })
+    ];
+
     programs.waybar = {
       enable = true;
       settings.mainBar = {
-        layer = "bottom";
+        layer = "top";
         position = "top";
         height = 40;
         output = [ "eDP-1" "HDMI-A-1" ];
-        modules-left = [ "custom/nix" "sway/workspaces" "sway/mode" ];
+        modules-left = [ "custom/nix" "wlr/workspaces" "sway/mode" ];
         modules-center = [ ];
         modules-right = [ "pulseaudio" "network" "backlight" "battery" "clock" "custom/power" ];
 
         "custom/nix" = {
           format = " ";
+          tooltip = false;
         };
 
         "custom/power" = {
           format = " ";
-          on-click = "${pkgs.rofi}/bin/rofi -show power -modes power:${power}";
+          on-click = "rofi -show power -modes power:${power}";
+          tooltip = false;
         };
 
         clock = {
@@ -36,7 +47,7 @@ in
           format-icons = {
             full = "";
             discharging = [ "" "" "" "" "" "" "" "" "" "" ];
-            # TODO: Add missing icons if nerd fonts ever get their shit together (nerd-fonts#279).
+            # TODO: Add missing icons (github:ryanoasis/nerd-fonts#279).
             charging = [ " " " " " " " " " " " " " " " " " " " " ];
           };
           tooltip = false;

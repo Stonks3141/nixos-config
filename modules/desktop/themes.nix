@@ -2,11 +2,8 @@
 let
   cfg = config.samn.desktop.themes;
   # capitalize first letter
-  firstUpper = str: with lib; strings.concatStrings (
-    lists.imap0
-      (i: v: if i == 0 then strings.toUpper v else v)
-      (strings.stringToCharacters str)
-  );
+  firstUpper = with lib.strings;
+    str: concatImapStrings (i: v: if i == 1 then toUpper v else v) (stringToCharacters str);
   gtkTheme = {
     name = "Catppuccin-${firstUpper cfg.gtk.catppuccin}-Standard-${firstUpper cfg.gtk.accent}-Dark";
     package = pkgs.catppuccin-gtk.override {
