@@ -5,15 +5,6 @@ let
 in
 {
   home-manager.users.samn = { ... }: {
-    nixpkgs.overlays = [
-      (self: super: {
-        waybar = super.waybar.overrideAttrs (old: {
-          patches = (old.patches or [ ]) ++ [ ../../../patches/hyprland-waybar.patch ];
-          mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ];
-        });
-      })
-    ];
-
     programs.waybar = {
       enable = true;
       settings.mainBar = {
@@ -21,7 +12,7 @@ in
         position = "top";
         height = 40;
         output = [ "eDP-1" "HDMI-A-1" ];
-        modules-left = [ "custom/nix" "wlr/workspaces" "sway/mode" ];
+        modules-left = [ "custom/nix" "sway/workspaces" "sway/mode" ];
         modules-center = [ ];
         modules-right = [ "pulseaudio" "network" "backlight" "battery" "clock" "custom/power" ];
 

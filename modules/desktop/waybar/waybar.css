@@ -26,7 +26,7 @@ window#waybar {
 
 #workspaces button {
   border-radius: 0;
-  padding: 0 15px;
+  padding: 0 8px;
 }
 
 #workspaces button:hover {
@@ -35,9 +35,9 @@ window#waybar {
   background-color: @surface0;
 }
 
-#workspaces button.active {
+#workspaces button.focused {
   background-color: @sapphire;
-  color: @crust;
+  color: @base;
 }
 
 #mode {
