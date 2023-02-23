@@ -4,7 +4,10 @@
       gtkTheme = config.home-manager.users.samn.gtk.theme;
       hyprConfig = pkgs.writeText "hypr-config"
         ''
-          source=/home/samn/.config/hypr/hyprland.conf
+          input:repeat_rate=40
+          input:repeat_delay=300
+          input:left_handed=true
+          exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland XDG_SESSION_TYPE=wayland
           exec-once=${pkgs.greetd.gtkgreet}/bin/gtkgreet \
             -l \
             -c "${if config.samn.network.wireguard.enable then
