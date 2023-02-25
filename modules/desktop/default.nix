@@ -1,6 +1,6 @@
 { lib, pkgs, ... }: {
   imports = [
-    ./sway.nix
+    ./dwl.nix
     ./themes.nix
     ./waybar
     ./rofi.nix
