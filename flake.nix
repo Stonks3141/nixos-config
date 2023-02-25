@@ -9,9 +9,8 @@
     };
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     agenix.url = "github:ryantm/agenix";
-    hyprland.url = "github:hyprwm/Hyprland";
   };
-  outputs = inputs@{ self, nixpkgs, nur, home-manager, utils, agenix, hyprland, ... }: utils.lib.mkFlake {
+  outputs = inputs@{ self, nixpkgs, nur, home-manager, utils, agenix, ... }: utils.lib.mkFlake {
     inherit self inputs;
     channels.nixpkgs = {
       input = nixpkgs;
@@ -20,10 +19,6 @@
     };
     hostDefaults.modules = [
       home-manager.nixosModules.default
-      {
-        home-manager.sharedModules = [ hyprland.homeManagerModules.default ];
-      }
-      hyprland.nixosModules.default
       agenix.nixosModules.default
       ./modules
     ];
