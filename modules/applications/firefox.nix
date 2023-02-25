@@ -3,7 +3,7 @@ let
   cfg = config.samn.applications.firefox;
   nur = pkgs.nur;
   addonId = "foo";
-  catppuccin-colors = pkgs.stdenv.mkDerivation {
+  catppuccin-colors = pkgs.stdenvNoCC.mkDerivation {
     name = "catppuccin-firefox-colors";
     src = pkgs.fetchFromGitHub
       {

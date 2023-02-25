@@ -2,7 +2,7 @@
   imports = [
     ./nushell
     ./bat.nix
-    ./kitty.nix
+    ./foot.nix
     ./helix.nix
     ./bottom.nix
     ./gitui.nix
@@ -13,7 +13,7 @@
 
   samn.applications = {
     bat.enable = lib.mkDefault true;
-    kitty.enable = lib.mkDefault true;
+    foot.enable = lib.mkDefault true;
     helix.enable = lib.mkDefault true;
     bottom.enable = lib.mkDefault true;
     gitui.enable = lib.mkDefault true;
