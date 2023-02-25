@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.samn.applications.foot;
   theme = builtins.fromTOML (builtins.readFile (pkgs.stdenvNoCC.mkDerivation {
@@ -28,11 +28,14 @@ in
     };
   };
 
-  config.home-manager.users.samn = { pkgs, ... }: {
+  config.home-manager.users.samn = { ... }: {
     programs.foot = lib.mkIf cfg.enable {
       enable = true;
       settings = {
-        main.font = "FiraCode Nerd Font:size=7";
+        main = {
+          font = "FiraCode Nerd Font:size=11";
+          dpi-aware = "off";
+        };
       } // theme;
     };
   };
