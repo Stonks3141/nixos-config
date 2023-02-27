@@ -22,10 +22,10 @@ in
       } // builtins.fromTOML (builtins.readFile
         (pkgs.fetchFromGitHub
           {
-            owner = "JoshPaulie";
+            owner = "catppuccin";
             repo = "starship";
-            rev = "3618616ce25d03eb411d8ca880e89b1dcf8745cc";
-            sha256 = "sha256-5iwRfu92dnDMu3YEN6EBzoBPImWOKAw1QB2qSqXKJlA=";
+            rev = "3e3e54410c3189053f4da7a7043261361a1ed1bc";
+            sha256 = "sha256-soEBVlq3ULeiZFAdQYMRFuswIIhI9bclIU8WXjxd7oY=";
           } + /palettes/${flavor}.toml));
     };
   };
