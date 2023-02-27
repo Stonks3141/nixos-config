@@ -3,25 +3,20 @@
     ./dwl.nix
     ./themes.nix
     ./waybar
-    ./rofi.nix
+    ./wmenu.nix
     ./mako.nix
   ];
 
   config = {
     samn.desktop = {
       mako.enable = lib.mkDefault true;
-      rofi.enable = lib.mkDefault true;
     };
 
     home-manager.users.samn = { pkgs, ... }: {
       home.packages = with pkgs; [
         wayland
-        glib
         wl-clipboard
         libnotify
-        swaylock
-        swayidle
-        swaybg
         grim
         slurp
         libsForQt5.polkit-kde-agent
