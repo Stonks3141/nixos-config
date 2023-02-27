@@ -11,7 +11,7 @@ let
     };
     buildPhase = ''
       # Very jank ini->toml conversion that works for this specific file
-      sed -E -i 's/([^=]+)=(\S*)/\1="\2"/g' catppuccin-${cfg.catppuccin}.conf
+      sed -E -i 's/=(\S*)/="\1"/g' catppuccin-${cfg.catppuccin}.conf
     '';
     installPhase = ''
       cp catppuccin-${cfg.catppuccin}.conf $out
