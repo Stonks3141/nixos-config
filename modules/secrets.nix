@@ -8,5 +8,4 @@
     mode = "400";
   };
   age.secrets."networks".file = ../secrets/networks.age;
-  age.secrets."wireguard/pavilion.key".file = ../secrets/wireguard/pavilion.key.age;
 }
