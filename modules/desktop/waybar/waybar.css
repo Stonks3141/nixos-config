@@ -1,6 +1,6 @@
 * {
   font-family: 'FiraCode Nerd Font', monospace;
-  font-size: 13;
+  font-size: 13px;
 }
 
 window#waybar > box {
@@ -25,7 +25,7 @@ window#waybar {
 
 #workspaces button {
   border-radius: 0;
-  padding: 0 8px;
+  padding: 0 15px;
 }
 
 #workspaces button:hover {
@@ -34,7 +34,7 @@ window#waybar {
   background-color: @surface0;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
   background-color: @sapphire;
   color: @base;
 }

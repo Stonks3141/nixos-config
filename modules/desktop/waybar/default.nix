@@ -1,9 +1,4 @@
-{ pkgs, ... }:
-let
-  power = pkgs.writeScript "power.nu" (builtins.readFile ../rofi-scripts/power.nu);
-  wifi = pkgs.writeScript "wifi.nu" (builtins.readFile ../rofi-scripts/wifi.nu);
-in
-{
+{ pkgs, ... }: {
   home-manager.users.samn = { ... }: {
     programs.waybar = {
       enable = true;
@@ -12,7 +7,7 @@ in
         position = "top";
         height = 40;
         output = [ "eDP-1" "HDMI-A-1" ];
-        modules-left = [ "custom/nix" "sway/workspaces" "sway/mode" ];
+        modules-left = [ "custom/nix" "wlr/workspaces" "sway/mode" ];
         modules-center = [ ];
         modules-right = [ "pulseaudio" "network" "backlight" "battery" "clock" "custom/power" ];
 
@@ -23,7 +18,7 @@ in
 
         "custom/power" = {
           format = " ";
-          on-click = "rofi -show power -modes power:${power}";
+          # on-click = "rofi -show power -modes power:${power}";
           tooltip = false;
         };
 
@@ -53,7 +48,7 @@ in
           format-ethernet = " {ifname}";
           format-wifi = "直 {signalStrength}%";
           tooltip-format-wifi = "{essid}";
-          on-click = wifi;
+          # on-click = wifi;
         };
 
         pulseaudio = {
