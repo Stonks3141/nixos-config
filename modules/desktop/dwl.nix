@@ -1,33 +1,57 @@
-{ lib, ... }: {
-  home-manager.users.samn = { pkgs, ... }:
-    let
-      wallpaper = builtins.path {
-        path = ./wallpaper.jpg;
-        name = "wallpaper";
+{ config, lib, pkgs, ... }:
+let
+  wallpaper = builtins.path {
+    path = ./wallpaper.jpg;
+    name = "wallpaper";
+  };
+  somebar = pkgs.somebar.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ../../somebar.patch ];
+  });
+  init = pkgs.writeScript "dwl-init" ''
+    ${pkgs.swaybg}/bin/swaybg -i ${wallpaper} \
+    & ${somebar}/bin/somebar \
+    & ${pkgs.swayidle}/bin/swayidle -w \
+      timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}' \
+      before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}'
+  '';
+  dwl = pkgs.dwl.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      # pkgs.fetchurl {
+      #   url = "https://git.sr.ht/~stonks3141/dwl/commit/a21980497c9cfe195b79295c70971933ae3a3601.patch";
+      #   sha256 = "";
+      # }
+      ../../gaps.patch
+      # pkgs.fetchurl {
+      #   url = "https://git.sr.ht/~stonks3141/dwl/commit/212ed89366f45f43248b054faa474ab9c9928307.patch";
+      #   sha256 = "";
+      # }
+      ../../config.patch
+    ];
+    # src = pkgs.fetchFromSourcehut {
+    #   owner = "~stonks3141";
+    #   repo = "dwl";
+    #   rev = "e4d67b2f1e2dcd013d2d3d9d3c475db98e28d611";
+    #   sha256 = "sha256-IZ3k+9pXIJKRHoWeLyOX9GG+iJkUweykps/QeYKCtIU=";
+    # };
+  });
+in
+{
+  services.greetd = {
+    enable = true;
+    restart = true;
+    settings = {
+      default_session = {
+        command = ''
+          ${pkgs.greetd.tuigreet}/bin/tuigreet \
+            --user-menu \
+            --user-menu-min-uid 1000 \
+            --user-menu-max-uid 30000 \
+            --asterisks \
+            --power-shutdown 'systemctl shutdown' \
+            --power-reboot 'systemctl reboot' \
+            --cmd '${dwl}/bin/dwl -s ${init}'
+        '';
       };
-      screenshot = pkgs.writeScript "screenshot.nu" (builtins.readFile ./screenshot.nu);
-      power = pkgs.writeScript "power.nu" (builtins.readFile ./rofi-scripts/power.nu);
-      volume = pkgs.writeScript "volume.nu" ''
-        PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH ${./volume.nu} "$@"
-      '';
-      init = pkgs.writeScript "dwl-init" ''
-        swaybg -i ${wallpaper} & ${pkgs.waybar}/bin/waybar
-      '';
-      dwl = pkgs.writeScriptBin "dwl" ''
-        ${pkgs.dwl}/bin/dwl -s ${init}
-      '';
-    in
-    {
-      nixpkgs.overlays = [
-        (self: super: {
-          dwl = super.dwl.overrideAttrs (old: {
-            patches = (old.patches or [ ]) ++ [
-              ../../patches/vanitygaps.patch
-              ../../patches/dwl-config.patch
-            ];
-          });
-        })
-      ];
-      home.packages = [ dwl ];
     };
+  };
 }

@@ -1,0 +1,30 @@
+From 7a9f1d3ac6a00f44e2d7174e3b6d3c0822d70674 Mon Sep 17 00:00:00 2001
+From: Sam Nystrom <samuel.l.nystrom@gmail.com>
+Date: Wed, 1 Mar 2023 20:20:24 -0500
+Subject: [PATCH] catppuccin
+
+---
+ src/config.def.hpp | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/config.def.hpp b/src/config.def.hpp
+index 40a8c95..ebc1c76 100644
+--- a/src/config.def.hpp
++++ b/src/config.def.hpp
+@@ -10,10 +10,10 @@ constexpr int paddingX = 10;
+ constexpr int paddingY = 3;
+ 
+ // See https://docs.gtk.org/Pango/type_func.FontDescription.from_string.html
+-constexpr const char* font = "Sans 12";
++constexpr const char* font = "FiraCode Nerd Font 12";
+ 
+-constexpr ColorScheme colorInactive = {Color(0xbb, 0xbb, 0xbb), Color(0x22, 0x22, 0x22)};
+-constexpr ColorScheme colorActive = {Color(0xee, 0xee, 0xee), Color(0x00, 0x55, 0x77)};
++constexpr ColorScheme colorInactive = {Color(0xca, 0xd3, 0xf5), Color(0x24, 0x27, 0x3a)};
++constexpr ColorScheme colorActive = {Color(0xca, 0xd3, 0xf5), Color(0xed, 0x87, 0x96)};
+ constexpr const char* termcmd[] = {"foot", nullptr};
+ 
+ static std::vector<std::string> tagNames = {
+-- 
+2.39.1
+
