@@ -13,9 +13,13 @@
       pam.services.swaylock.text = ''
         auth include login
       '';
-      sudo.extraConfig = ''
-        Defaults       timestamp_timeout=10
-      '';
+      doas = {
+        enable = true;
+        extraConfig = ''
+          permit :wheel
+        '';
+      };
+      sudo.enable = false;
     };
 
     services.printing.enable = true;
