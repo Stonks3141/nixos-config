@@ -21,6 +21,8 @@
     firefox.enable = lib.mkDefault true;
   };
 
+  environment.systemPackages = [ pkgs.git ];
+
   home-manager.users.samn = { pkgs, ... }: {
     home.packages = with pkgs; [
       # CLIs
@@ -39,12 +41,8 @@
       xfce.thunar
       xfce.tumbler # thumbnails for Thunar
       viewnior
-      # libreoffice
-      vlc
       discord
       android-studio
-      jetbrains.idea-community
-      prusa-slicer
     ];
 
     home.sessionVariables = {
