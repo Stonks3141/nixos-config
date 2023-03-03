@@ -2,7 +2,6 @@
   imports = [
     ./dwl.nix
     ./themes.nix
-    ./waybar
     ./wmenu.nix
     ./mako.nix
   ];
@@ -19,7 +18,6 @@
         libnotify
         grim
         slurp
-        libsForQt5.polkit-kde-agent
       ];
 
       home.sessionVariables = {
