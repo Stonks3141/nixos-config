@@ -5,7 +5,7 @@ let
     name = "wallpaper";
   };
   somebar = pkgs.somebar.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ ../../somebar.patch ];
+    patches = (old.patches or [ ]) ++ [ ../../patches/somebar.patch ];
   });
   init = pkgs.writeScript "dwl-init" ''
     ${pkgs.swaybg}/bin/swaybg -i ${wallpaper} \
@@ -20,12 +20,12 @@ let
       #   url = "https://git.sr.ht/~stonks3141/dwl/commit/a21980497c9cfe195b79295c70971933ae3a3601.patch";
       #   sha256 = "";
       # }
-      ../../gaps.patch
+      ../../patches/gaps.patch
       # pkgs.fetchurl {
       #   url = "https://git.sr.ht/~stonks3141/dwl/commit/212ed89366f45f43248b054faa474ab9c9928307.patch";
       #   sha256 = "";
       # }
-      ../../config.patch
+      ../../patches/config.patch
     ];
     # src = pkgs.fetchFromSourcehut {
     #   owner = "~stonks3141";
