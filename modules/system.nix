@@ -13,19 +13,9 @@
       pam.services.swaylock.text = ''
         auth include login
       '';
-      sudo = {
-        extraRules = [
-          {
-            groups = [ "wheel" ];
-            commands = [
-              { command = "${pkgs.iproute2}/bin/ip netns exec *"; options = [ "SETENV" "NOPASSWD" ]; }
-            ];
-          }
-        ];
-        extraConfig = ''
-          Defaults       timestamp_timeout=10
-        '';
-      };
+      sudo.extraConfig = ''
+        Defaults       timestamp_timeout=10
+      '';
     };
 
     services.printing.enable = true;
