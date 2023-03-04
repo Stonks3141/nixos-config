@@ -9,13 +9,13 @@ let
   };
   status = pkgs.writeShellApplication {
     name = "status.sh";
-    runtimeInputs = with pkgs; [ pulseaudio brightnessctl ];
+    runtimeInputs = [ pkgs.pulseaudio pkgs.brightnessctl somebar ];
     text = (builtins.readFile ./status.sh);
   };
   init = pkgs.writeScript "dwl-init" ''
     ${pkgs.swaybg}/bin/swaybg -i ${wallpaper} \
     & ${somebar}/bin/somebar \
-    & ${status} \
+    & ${status}/bin/status.sh \
     & ${pkgs.swayidle}/bin/swayidle -w \
       timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}' \
       before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}'
