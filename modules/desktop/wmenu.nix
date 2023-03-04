@@ -32,23 +32,24 @@ let
     '';
   };
   wmenu-wrapped = pkgs.writeScriptBin "wmenu" ''
-    ${wmenu}/bin/wmenu -N 24273a -n cad3f5 -M 1e2030 -m cad3f5 -S c6a0f6 -s 24273a "$@"
+    ${wmenu}/bin/wmenu \
+      -N 24273a -n cad3f5 -M c6a0f6 -m 24273a -S 24273a -s c6a0f6 \
+      -f "FiraCode Nerd Font 12.2" \
+      "$@"
   '';
   path = pkgs.writeScript "list-path" ''
-    #!/bin/sh
-
     (IFS=:
       for p in $PATH; do
-        ls -1 "$p"
+        ls 2>/dev/null -1 "$p"
       done
     )
   '';
-  run = pkgs.writeScriptBin "wmenu-run" ''
-    exec $(${path} | ${wmenu-wrapped}/bin/wmenu -p Run:)
+  wmenu-run = pkgs.writeScriptBin "wmenu-run" ''
+    exec $(${path} | ${wmenu-wrapped}/bin/wmenu -p "Run:")
   '';
 in
 {
   config.home-manager.users.samn = { ... }: {
-    home.packages = [ wmenu-wrapped run ];
+    home.packages = [ wmenu-wrapped wmenu-run ];
   };
 }
