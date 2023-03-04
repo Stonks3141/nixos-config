@@ -20,13 +20,12 @@ let
       timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}' \
       before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}'
   '';
-  dwl = pkgs.dwl.overrideAttrs (old: {
+  dwl = (pkgs.dwl.override { conf = ./config.def.h; }).overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       (pkgs.fetchpatch {
         url = "https://github.com/djpohly/dwl/compare/main...sevz17:vanitygaps.patch";
         sha256 = "sha256-MZqCxD+nTM7YaEVENxvnNVlGQ0og+gb+9kIS7EVtMUQ=";
       })
-      ../../patches/config.patch
     ];
   });
 in

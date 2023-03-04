@@ -32,6 +32,7 @@ clock() {
 }
 
 while true; do
-  echo "status $(notifications) | $(pulseaudio) | $(network) | $(brightness) | $(clock)" > "$XDG_RUNTIME_DIR/somebar-1"
+  echo "status $(notifications) | $(pulseaudio) | $(network) | $(brightness) | $(clock)" \
+    > "$XDG_RUNTIME_DIR/somebar-1"
   sleep 0.2
 done
