@@ -2,11 +2,6 @@
 
 set -eu
 
-notifications() {
-  echo ""
-  # tiramisu stuff
-}
-
 pulseaudio() {
   volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+(?=%)' | head -1)
   if [ "$volume" -eq 0 ]; then
@@ -16,15 +11,34 @@ pulseaudio() {
   else
     volume_symbol=""
   fi
-  echo "$volume_symbol $volume%%"
+  echo "$volume_symbol $volume%"
 }
 
 network() {
-  echo "hi"
+  ssid=$(iwgetid -r)
+  if [ -n "$ssid" ]; then
+    echo "直 $ssid"
+  else
+    echo "睊"
+  fi
 }
 
 brightness() {
-  echo "  $(brightnessctl -m | awk -F, '{ print $4 }')"
+  echo " $(brightnessctl -m | awk -F, '{ print $4 }')"
+}
+
+battery() {
+  status=$(cat /sys/class/power_supply/BAT0/status)
+  capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+
+  case "$status" in
+    "Discharging") symbols="         " ;;
+    "Charging") symbols="         " ;;
+  esac
+  idx=$(((capacity + 5) / 10 + 1))
+  symbol=$(echo "$symbols" | awk "{ print \$$idx }")
+
+  echo "$symbol $capacity%"
 }
 
 clock() {
@@ -32,7 +46,7 @@ clock() {
 }
 
 while true; do
-  echo "status $(notifications) | $(pulseaudio) | $(network) | $(brightness) | $(clock)" \
-    > "$XDG_RUNTIME_DIR/somebar-1"
+  echo "status $(pulseaudio) | $(network) | $(brightness) | $(battery) | $(clock)" \
+    > "$XDG_RUNTIME_DIR/somebar-0"
   sleep 0.2
 done
