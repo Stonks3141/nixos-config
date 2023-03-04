@@ -7,9 +7,15 @@ let
   somebar = pkgs.somebar.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ../../patches/somebar.patch ];
   });
+  status = pkgs.writeShellApplication {
+    name = "status.sh";
+    runtimeInputs = with pkgs; [ pulseaudio brightnessctl ];
+    text = (builtins.readFile ./status.sh);
+  };
   init = pkgs.writeScript "dwl-init" ''
     ${pkgs.swaybg}/bin/swaybg -i ${wallpaper} \
     & ${somebar}/bin/somebar \
+    & ${status} \
     & ${pkgs.swayidle}/bin/swayidle -w \
       timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}' \
       before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}'
