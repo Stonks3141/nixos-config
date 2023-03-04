@@ -46,7 +46,6 @@ clock() {
 }
 
 while true; do
-  echo "status $(pulseaudio) | $(network) | $(brightness) | $(battery) | $(clock)" \
-    > "$XDG_RUNTIME_DIR/somebar-0"
-  sleep 0.2
+  somebar -c "status $(pulseaudio) | $(network) | $(brightness) | $(battery) | $(clock)"
+  sleep 0.5
 done
