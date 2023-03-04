@@ -22,7 +22,10 @@ let
   '';
   dwl = pkgs.dwl.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
-      ../../patches/gaps.patch
+      (pkgs.fetchpatch {
+        url = "https://github.com/djpohly/dwl/compare/main...sevz17:vanitygaps.patch";
+        sha256 = "sha256-MZqCxD+nTM7YaEVENxvnNVlGQ0og+gb+9kIS7EVtMUQ=";
+      })
       ../../patches/config.patch
     ];
   });
