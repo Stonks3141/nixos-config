@@ -4,9 +4,18 @@ let
     path = ./wallpaper.jpg;
     name = "wallpaper";
   };
-  somebar = pkgs.somebar.override {
-    conf = ./config.def.hpp;
-  };
+  somebar = (pkgs.somebar.override { conf = ./config.def.hpp; }).overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      (pkgs.fetchpatch {
+        url = "https://git.sr.ht/~raphi/somebar/blob/master/contrib/colorless-status.patch";
+        sha256 = "sha256-MSReljoSB0wS1gPumrGNz15UVyP/p9geshbrr+dY2Pw=";
+      })
+      (pkgs.fetchpatch {
+        url = "https://git.sr.ht/~raphi/somebar/blob/master/contrib/dwm-like-tag-indicator.patch";
+        sha256 = "sha256-FvdzGGeOBDyFsyoBELNIYWAonDInRuOsOzpeePRo4zk=";
+      })
+    ];
+  });
   status = pkgs.writeShellApplication {
     name = "status.sh";
     runtimeInputs = [ pkgs.pulseaudio pkgs.brightnessctl somebar ];
