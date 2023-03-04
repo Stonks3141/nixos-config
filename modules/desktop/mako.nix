@@ -13,13 +13,13 @@ in
   };
 
   config.home-manager.users.samn = { pkgs, ... }: {
-    programs.mako = lib.mkIf cfg.enable {
+    services.mako = lib.mkIf cfg.enable {
       enable = true;
       font = "FiraCode Nerd Font 10";
+
       borderSize = 2;
       borderRadius = 3;
       margin = "20";
-
       extraConfig = builtins.readFile (pkgs.fetchFromGitHub
         {
           owner = "catppuccin";
