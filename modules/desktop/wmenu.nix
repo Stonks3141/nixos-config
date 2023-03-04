@@ -32,7 +32,7 @@ let
     '';
   };
   wmenu-wrapped = pkgs.writeScriptBin "wmenu" ''
-    ${wmenu}/bin/wmenu -N 181926 -n cad3f5 -M 1e2030 -m cad3f5 -S ed8796 -s 181926 "$@"
+    ${wmenu}/bin/wmenu -N 24273a -n cad3f5 -M 1e2030 -m cad3f5 -S c6a0f6 -s 24273a "$@"
   '';
   path = pkgs.writeScript "list-path" ''
     #!/bin/sh
@@ -44,7 +44,7 @@ let
     )
   '';
   run = pkgs.writeScriptBin "wmenu-run" ''
-    exec $(${path} | ${wmenu-wrapped}/bin/wmenu)
+    exec $(${path} | ${wmenu-wrapped}/bin/wmenu -p Run:)
   '';
 in
 {

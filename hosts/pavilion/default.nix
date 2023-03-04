@@ -22,7 +22,7 @@
 
   samn = {
     catppuccin = "macchiato";
-    accent = "red";
+    accent = "mauve";
     system.stateVersion = "22.11";
   };
 }
