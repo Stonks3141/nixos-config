@@ -11,20 +11,20 @@ pulseaudio() {
   else
     volume_symbol=""
   fi
-  echo "$volume_symbol $volume%"
+  echo "<span foreground=\"#ed8796\">$volume_symbol $volume%</span>"
 }
 
 network() {
   ssid=$(iwgetid -r)
   if [ -n "$ssid" ]; then
-    echo "直 $ssid"
+    echo "<span foreground=\"#f5a97f\">直 $ssid</span>"
   else
-    echo "睊"
+    echo "<span foreground=\"#f5a97f\">睊</span>"
   fi
 }
 
 brightness() {
-  echo " $(brightnessctl -m | awk -F, '{ print $4 }')"
+  echo "<span foreground=\"#eed49f\"> $(brightnessctl -m | awk -F, '{ print $4 }')</span>"
 }
 
 battery() {
@@ -38,11 +38,11 @@ battery() {
   idx=$(((capacity + 5) / 10 + 1))
   symbol=$(echo "$symbols" | awk "{ print \$$idx }")
 
-  echo "$symbol $capacity%"
+  echo "<span foreground=\"#a6da95\">$symbol $capacity%</span>"
 }
 
 clock() {
-  echo " $(date '+%b %d %H:%M')"
+  echo "<span foreground=\"#7dc4e4\"> $(date '+%b %d %H:%M')</span>"
 }
 
 while true; do

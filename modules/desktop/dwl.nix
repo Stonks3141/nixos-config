@@ -14,6 +14,10 @@ let
         url = "https://git.sr.ht/~raphi/somebar/blob/master/contrib/dwm-like-tag-indicator.patch";
         sha256 = "sha256-FvdzGGeOBDyFsyoBELNIYWAonDInRuOsOzpeePRo4zk=";
       })
+      (pkgs.fetchpatch {
+        url = "https://git.sr.ht/~raphi/somebar/blob/master/contrib/markup-in-status-messages.patch";
+        sha256 = "sha256-QHGgez/fC7nEHKQqKgxY5RkVUB4ySxCd4a8lTWiDZtY=";
+      })
     ];
   });
   status = pkgs.writeShellApplication {
@@ -36,6 +40,7 @@ let
         sha256 = "sha256-MZqCxD+nTM7YaEVENxvnNVlGQ0og+gb+9kIS7EVtMUQ=";
       })
     ];
+    NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or [ ]) ++ [ "-Wno-unused-function" ];
   });
 in
 {
