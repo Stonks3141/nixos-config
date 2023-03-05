@@ -12,7 +12,7 @@ constexpr int paddingY = 2;
 // See https://docs.gtk.org/Pango/type_func.FontDescription.from_string.html
 constexpr const char* font = "FiraCode Nerd Font 12";
 
-constexpr ColorScheme colorInactive = {Color(0xca, 0xd3, 0xf5), Color(0x24, 0x27, 0x3a)};
+constexpr ColorScheme colorInactive = {Color(0xc6, 0xa0, 0xf6), Color(0x24, 0x27, 0x3a)};
 constexpr ColorScheme colorActive = {Color(0x24, 0x27, 0x3a), Color(0xc6, 0xa0, 0xf6)};
 constexpr const char* termcmd[] = {"foot", nullptr};
 
