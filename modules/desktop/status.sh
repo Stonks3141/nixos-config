@@ -30,14 +30,12 @@ brightness() {
 battery() {
   status=$(cat /sys/class/power_supply/BAT0/status)
   capacity=$(cat /sys/class/power_supply/BAT0/capacity)
-
-  case "$status" in
-    "Discharging") symbols="         " ;;
-    "Charging") symbols="         " ;;
-  esac
   idx=$(((capacity + 5) / 10 + 1))
-  symbol=$(echo "$symbols" | awk "{ print \$$idx }")
-
+  case "$status" in
+    "Discharging") symbol=$(echo "         " | awk "{ print \$$idx }" ) ;;
+    "Charging")    symbol=$(echo "         " | awk "{ print \$$idx }" ) ;;
+    "Full")        symbol="" ;;
+  esac
   echo "<span foreground=\"#a6da95\">$symbol $capacity%</span>"
 }
 
