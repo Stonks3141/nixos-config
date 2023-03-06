@@ -30,11 +30,12 @@ brightness() {
 battery() {
   status=$(cat /sys/class/power_supply/BAT0/status)
   capacity=$(cat /sys/class/power_supply/BAT0/capacity)
-  idx=$(((capacity + 5) / 10 + 1))
+  idx=$((capacity / 10 + 1))
+  symbol=
   case "$status" in
     "Discharging") symbol=$(echo "         " | awk "{ print \$$idx }" ) ;;
-    "Charging")    symbol=$(echo "         " | awk "{ print \$$idx }" ) ;;
-    "Full")        symbol="" ;;
+    "Charging"   ) symbol=$(echo "         " | awk "{ print \$$idx }" ) ;;
+    "Full"       ) symbol="" ;;
   esac
   echo "<span foreground=\"#a6da95\">$symbol $capacity%</span>"
 }
@@ -45,5 +46,5 @@ clock() {
 
 while true; do
   somebar -c "status $(pulseaudio) | $(network) | $(brightness) | $(battery) | $(clock)"
-  sleep 0.5
+  sleep 0.2
 done
