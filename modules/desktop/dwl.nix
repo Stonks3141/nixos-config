@@ -4,7 +4,7 @@ let
     path = ./wallpaper.jpg;
     name = "wallpaper";
   };
-  somebar = (pkgs.somebar.override { conf = ./config.def.hpp; }).overrideAttrs (old: {
+  somebar = (pkgs.somebar.override { conf = ./config.hpp; }).overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       (pkgs.fetchpatch {
         url = "https://git.sr.ht/~raphi/somebar/blob/master/contrib/colorless-status.patch";
@@ -33,7 +33,7 @@ let
       timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}' \
       before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${wallpaper}'
   '';
-  dwl = (pkgs.dwl.override { conf = ./config.def.h; }).overrideAttrs (old: {
+  dwl = (pkgs.dwl.override { conf = ./config.h; }).overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       (pkgs.fetchpatch {
         url = "https://github.com/djpohly/dwl/compare/main...sevz17:vanitygaps.patch";
@@ -42,6 +42,13 @@ let
     ];
     NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or [ ]) ++ [ "-Wno-unused-function" ];
   });
+  dwl-wrapped = pkgs.writeShellApplication {
+    name = "dwl";
+    runtimeInputs = with pkgs; [ pulseaudio brightnessctl ];
+    text = ''
+      ${dwl}/bin/dwl "$@"
+    '';
+  };
 in
 {
   services.greetd = {
@@ -58,7 +65,7 @@ in
             --asterisks \
             --power-shutdown 'systemctl shutdown' \
             --power-reboot 'systemctl reboot' \
-            --cmd '${dwl}/bin/dwl -s ${init}'
+            --cmd '${dwl-wrapped}/bin/dwl -s ${init}'
         '';
       };
     };

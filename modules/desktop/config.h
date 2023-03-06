@@ -18,12 +18,8 @@ static const float fullscreen_bg[]         = {0.141, 0.153, 0.227, 1.0};
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* app_id     title       tags mask     isfloating   monitor */
-	/* examples:
-	{ "Gimp",     NULL,       0,            1,           -1 },
-	{ "firefox",  NULL,       1 << 8,       0,           -1 },
-	*/
-	{ "dummy-for-gcc-warnings",  NULL,       1 << 8,       0,           -1 },
+	/* app_id     title       tags mask     isfloating   isterm  noswallow  monitor */
+	{ "dummy-for-gcc",NULL,   1 << 8,       0,           0,      1,         -1 },
 };
 
 /* layout(s) */
@@ -113,6 +109,12 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 /* commands */
 static const char *termcmd[] = { "foot", NULL };
 static const char *menucmd[] = { "wmenu-run", NULL };
+static const char *upvol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *downvol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *mute[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *micmute[] = { "pactl", "set-source-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *upbright[] = { "brightnessctl", "set", "+5%", NULL };
+static const char *downbright[] = { "brightnessctl", "set", "5%-", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -149,6 +151,12 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_7, XKB_KEY_ampersand,                  6),
 	TAGKEYS(          XKB_KEY_8, XKB_KEY_asterisk,                   7),
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
+	{ 0,                         XKB_KEY_XF86AudioRaiseVolume, spawn,{.v = upvol} },
+	{ 0,                         XKB_KEY_XF86AudioLowerVolume, spawn,{.v = downvol} },
+	{ 0,                         XKB_KEY_XF86AudioMute,        spawn,{.v = mute} },
+	{ 0,                         XKB_KEY_XF86AudioMicMute,     spawn,{.v = micmute} },
+	{ 0,                         XKB_KEY_XF86MonBrightnessUp,  spawn,{.v = upbright} },
+	{ 0,                         XKB_KEY_XF86MonBrightnessDown,spawn,{.v = downbright} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_E,          quit,           {0} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
