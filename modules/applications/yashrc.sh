@@ -26,6 +26,9 @@ HISTFILE=~/.local/share/yash/history.txt HISTSIZE=5000
 
 unset _hc _uc _2c
 
+eval $(ssh-agent -c | sed 's/setenv \(\S*\) /export \1=/g' | head -2)
+ssh-add 2>/dev/null ~/.ssh/samn ~/.ssh/pavilion
+
 STARSHIP_SESSION_KEY=$(echo "$RANDOM$RANDOM$RANDOM$RANDOM$RANDOM"0000000000000000 | head -c16)
 PS1='$(starship prompt --status="$?" --jobs="$(jobs -p | wc -l)")'
 PS2='$(starship prompt --continuation)'
@@ -37,26 +40,24 @@ TERMINAL=foot
 
 PROMPT_COMMAND='zoxide add -- "$(pwd -L)"'
 
-# Jump to a directory using only keywords.
 z() {
-    if [ "$#" -eq 0 ]; then
-        cd ~
-    elif [ "$#" -eq 1 ] && [ "$1" = '-' ]; then
-        if [ -n "$OLDPWD" ]; then
-            cd "$OLDPWD"
-        else
-            printf 'zoxide: $OLDPWD is not set'
-            return 1
-        fi
-    elif [ "$#" -eq 1 ] && [ -d "$1" ]; then
-        cd "$1"
+  if [ "$#" -eq 0 ]; then
+    cd ~
+  elif [ "$#" -eq 1 ] && [ "$1" = '-' ]; then
+    if [ -n "$OLDPWD" ]; then
+      cd "$OLDPWD"
     else
-        cd "$(zoxide query --exclude "$(pwd -L)" -- "$@")"
+      printf 'zoxide: $OLDPWD is not set'
+      return 1
     fi
+  elif [ "$#" -eq 1 ] && [ -d "$1" ]; then
+    cd "$1"
+  else
+    cd "$(zoxide query --exclude "$(pwd -L)" -- "$@")"
+  fi
 }
 
-# Jump to a directory using interactive search.
 zi() {
-    cd "$(zoxide query -i -- "$@")"
+  cd "$(zoxide query -i -- "$@")"
 }
 
