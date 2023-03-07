@@ -49,13 +49,15 @@
     programs.git = rec {
       enable = true;
       package = pkgs.gitFull;
-      userEmail = "samuel.l.nystrom@gmail.com";
+      userEmail = "sam@samnystrom.dev";
       userName = "Sam Nystrom";
       extraConfig.sendemail = {
-        smtpserver = "smtp.gmail.com";
+        verify = "off";
+        annotate = "yes";
+        smtpserver = "smtp.migadu.com";
         smtpuser = userEmail;
         smtpencryption = "tls";
-        smtpserverport = 587;
+        smtpserverport = 465;
       };
     };
   };

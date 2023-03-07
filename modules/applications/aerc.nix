@@ -1,17 +1,25 @@
 { config, pkgs, lib, ... }: {
   home-manager.users.samn = { pkgs, ... }: {
-    accounts.email.accounts."samuel.l.nystrom@gmail.com" = {
+    accounts.email.accounts."sam@samnystrom.dev" = rec {
       primary = true;
-      flavor = "gmail.com";
-      address = "samuel.l.nystrom@gmail.com";
+      address = "sam@samnystrom.dev";
+      userName = address;
       realName = "Sam Nystrom";
-      passwordCommand = "cat ${config.age.secrets."passwords/email/samuel.l.nystrom_at_gmail.com".path}";
-      aerc.enable = true;
-      notmuch.enable = true;
-      lieer = {
-        enable = true;
-        sync.enable = true;
+      passwordCommand = "cat ${config.age.secrets."passwords/email/sam_at_samnystrom.dev".path}";
+      imap = {
+        host = "imap.migadu.com";
+        port = 993;
       };
+      smtp = {
+        host = "smtp.migadu.com";
+        port = 465;
+      };
+      signature = {
+        showSignature = "append";
+        text = "Sam";
+      };
+      aerc.enable = true;
+      # TODO: mbsync/postfix?
     };
 
     programs.aerc = {
@@ -165,10 +173,5 @@
         <C-n> = :next-tab<Enter>
       '';
     };
-
-    programs.notmuch = {
-      enable = true;
-    };
-    services.lieer.enable = true;
   };
 }
