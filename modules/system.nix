@@ -69,19 +69,6 @@
       "8bd5ca"
     ];
 
-    # services.openssh = {
-    #   hostKeys = [
-    #     {
-    #       path = "~/.ssh/samn";
-    #       type = "ed25519";
-    #     }
-    #     {
-    #       path = "~/.ssh/pavilion";
-    #       type = "ed25519";
-    #     }
-    #   ];
-    # };
-
     programs.light.enable = true;
     programs.dconf.enable = true;
     programs.adb.enable = true;
