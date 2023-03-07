@@ -6,12 +6,13 @@
   networking.hostId = "95833b11";
   networking.hostName = "pavilion";
 
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.gfxmodeEfi = "1920x1080";
-  boot.loader.grub.gfxpayloadEfi = "1920x1080";
+  boot.loader = {
+    grub.enable = false;
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   boot.kernelParams = [ "i915.force_probe=46a6" ];
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.opengl = {

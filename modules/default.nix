@@ -5,7 +5,6 @@
     ./applications
     ./system.nix
     ./network.nix
-    ./grub.nix
   ];
 
   options.samn = {
