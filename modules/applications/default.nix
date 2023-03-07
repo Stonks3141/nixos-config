@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: {
   imports = [
     ./bat.nix
     ./foot.nix
@@ -46,19 +46,30 @@
 
     home.file.".yashrc".source = ./yashrc.sh;
 
-    programs.git = rec {
-      enable = true;
-      package = pkgs.gitFull;
-      userEmail = "sam@samnystrom.dev";
-      userName = "Sam Nystrom";
-      extraConfig.sendemail = {
-        verify = "off";
-        annotate = "yes";
-        smtpserver = "smtp.migadu.com";
-        smtpuser = userEmail;
-        smtpencryption = "tls";
-        smtpserverport = 465;
+    programs.git =
+      let
+        email-creds = pkgs.writeScript "email-password-credentials" ''
+          if [ "$1" = "get" ]; then
+            echo "password=$(cat ${config.age.secrets."passwords/email/sam_at_samnystrom.dev".path})"
+          fi
+        '';
+      in
+      rec {
+        enable = true;
+        package = pkgs.gitFull;
+        userEmail = "sam@samnystrom.dev";
+        userName = "Sam Nystrom";
+        extraConfig = {
+          sendemail = {
+            verify = "off";
+            annotate = "yes";
+            smtpServer = "smtp.migadu.com";
+            smtpUser = userEmail;
+            smtpEncryption = "tls";
+            smtpServerPort = 587;
+          };
+          credential."smtp://sam%40samnystrom.dev@smtp.migadu.com:587".helper = "${email-creds}";
+        };
       };
-    };
   };
 }
