@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2023 Sam Nystrom <sam@samnystrom.dev>
+# SPDX-License-Identifier: CC0-1.0
+
 { config, pkgs, lib, ... }: {
   options.samn.system.stateVersion = lib.mkOption { type = lib.types.str; };
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env nu
 
+# SPDX-FileCopyrightText: 2023 Sam Nystrom <sam@samnystrom.dev>
+# SPDX-License-Identifier: CC0-1.0
+
 def main [] {
   exit 1
 }

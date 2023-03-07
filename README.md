@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2022 Sam Nystrom <sam@samnystrom.dev>
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # nixos-config
 
 This is my NixOS configuration. It is heavily based on [@chvp](https://github.com/chvp)'s excellent [config](https://github.com/chvp/nixos-config).
