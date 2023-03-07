@@ -83,7 +83,7 @@
         home = "/home/samn";
         description = "Sam Nystrom";
         uid = 1000;
-        shell = pkgs.yash;
+        shell = pkgs.nushell;
         extraGroups = [ "wheel" "video" "audio" "kvm" "adbusers" "vboxusers" "plugdev" "docker" ];
         passwordFile = config.age.secrets."passwords/users/samn".path;
       };
