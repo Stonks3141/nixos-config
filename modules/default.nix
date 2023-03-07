@@ -1,9 +1,8 @@
-{ config, lib, ... }: {
+{ config, pkgs, lib, ... }: {
   imports = [
     ./secrets.nix
     ./desktop
     ./applications
-    ./fonts.nix
     ./system.nix
     ./network.nix
     ./grub.nix
@@ -41,6 +40,11 @@
     nix.settings = {
       experimental-features = [ "nix-command" "flakes" ];
     };
+
+    fonts.fonts = with pkgs; [
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      noto-fonts
+    ];
 
     home-manager.users.samn = { pkgs, ... }: {
       home.stateVersion = config.samn.system.stateVersion;
