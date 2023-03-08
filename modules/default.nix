@@ -48,18 +48,19 @@
       noto-fonts
     ];
 
-    home-manager.users.samn = { pkgs, ... }: {
-      home.stateVersion = config.samn.system.stateVersion;
-      home.sessionVariables = {
-        EDITOR = "${pkgs.helix}/bin/hx";
-        GIT_EDITOR = "${pkgs.helix}/bin/hx";
-        BROWSER = "${pkgs.firefox}/bin/firefox";
-        TERMINAL = "${pkgs.kitty}/bin/kitty";
-        XDG_DOWNLOADS_DIR = "~/Downloads";
-        XDG_CONFIG_HOME = "~/.config";
-        XDG_DATA_HOME = "~/.local/share";
+    home-manager.users.samn = { pkgs, ... }:
+      let home = config.users.users.samn.home; in {
+        home.stateVersion = config.samn.system.stateVersion;
+        home.sessionVariables = {
+          EDITOR = "${pkgs.helix}/bin/hx";
+          PAGER = "${pkgs.less}/bin/less";
+          BROWSER = "${pkgs.firefox}/bin/firefox";
+          TERMINAL = "${pkgs.foot}/bin/foot";
+          XDG_DOWNLOADS_DIR = "${home}/Downloads";
+          XDG_CONFIG_HOME = "${home}/.config";
+          XDG_DATA_HOME = "${home}/.local/share";
+        };
+        nixpkgs.config.allowUnfree = true;
       };
-      nixpkgs.config.allowUnfree = true;
-    };
   };
 }
