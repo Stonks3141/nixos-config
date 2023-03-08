@@ -24,9 +24,10 @@ let
     ];
   });
   status = pkgs.writeShellApplication {
-    name = "status.sh";
+    name = "status.nu";
     runtimeInputs = [ pkgs.pulseaudio pkgs.brightnessctl somebar ];
-    text = (builtins.readFile ./status.sh);
+    text = (builtins.readFile ./status.nu);
+    checkPhase = "";
   };
   init = pkgs.writeScript "dwl-init" ''
     ${pkgs.swaybg}/bin/swaybg -i ${wallpaper} \
