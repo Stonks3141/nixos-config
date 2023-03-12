@@ -36,7 +36,7 @@ def brightness [] {
 def battery [] {
   let status = (cat /sys/class/power_supply/BAT0/status)
   let capacity = (cat /sys/class/power_supply/BAT0/capacity | into int)
-  let idx = $capacity / 10 + 1
+  let idx = ($capacity - 1) / 10 + 1
   let symbol = ({
     "Discharging": { ["" "" "" "" "" "" "" "" "" ""] | get $idx },
     "Charging": { ["" "" "" "" "" "" "" "" "" ""] | get $idx },
