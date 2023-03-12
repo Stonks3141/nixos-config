@@ -28,7 +28,6 @@
 
   home-manager.users.samn = { pkgs, ... }: {
     home.packages = with pkgs; [
-      # CLIs
       ripgrep
       zoxide
       exa
@@ -36,10 +35,10 @@
       fzf
       tokei
 
-      # GUIs
-      xfce.thunar
-      xfce.tumbler # thumbnails for Thunar
-      viewnior
+      amfora
+      nnn
+
+      imv
       discord
       android-studio
     ];
