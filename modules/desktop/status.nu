@@ -36,9 +36,10 @@ def brightness [] {
 def battery [] {
   let status = (cat /sys/class/power_supply/BAT0/status)
   let capacity = (cat /sys/class/power_supply/BAT0/capacity | into int)
-  let idx = ($capacity - 1) / 10 + 1
+
+  let idx = ($capacity - 1) / 10
   let symbol = ({
-    "Discharging": { ["" "" "" "" "" "" "" "" "" ""] | get $idx },
+    "Discharging": { ["<span foreground=\"#ed8796\">󰂃</span>" "" "" "" "" "" "" "" "" ""] | get $idx },
     "Charging": { ["" "" "" "" "" "" "" "" "" ""] | get $idx },
     "Full": { "" },
   } | get $status | do $in)
@@ -46,7 +47,7 @@ def battery [] {
 }
 
 def clock [] {
-  $"<span foreground=\"#7dc4e4\"> (date now | date format '+%b %d %H:%M')</span>"
+  $"<span foreground=\"#7dc4e4\"> (date now | date format '%b %d %H:%M')</span>"
 }
 
 loop {
